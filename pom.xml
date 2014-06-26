@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<organization>
+		<name>University of Applied Sciences Northwestern Switzerland FHNW</name>
+		<url>http://www.fhnw.ch</url>
+	</organization>
+
+	<groupId>ch.fhnw.business.iwi</groupId>
+	<artifactId>wikihistorybook</artifactId>
+	<version>0.1.0.BUILD-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Interactive Wikihistorybook</name>
+	<url>http://www.fhnw.ch/business/iwi/wikihistorybook</url>
+
+	<developers>
+		<developer>
+			<id>borobudur</id>
+			<name>Stefan Wagner</name>
+			<email>stefan.wagner@fhnw.ch</email>
+			<organization>FHNW-IWI</organization>
+			<organizationUrl>http://www.fhnw.ch/business/iwi</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+	</properties>
+
+	<modules>
+		<module>wikihistorybook-applet</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.easytesting</groupId>
+				<artifactId>fest-assert</artifactId>
+				<version>1.4</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>
