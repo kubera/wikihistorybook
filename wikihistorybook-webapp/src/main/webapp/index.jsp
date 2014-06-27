@@ -16,7 +16,7 @@
 	</p>
 	<object type="application/x-java-applet" height="600" width="1000">
 		<param name="codebase"
-			value="/<%=resource.getString("webapp.url.base")%>/applet" />
+			value="/<%=resource.getString("webapp.url.base")%>/" />
 		<param name="code"
 			value="<%=WikiBookContainer.class.getName()%>.class" />
 		<param name="archive"
