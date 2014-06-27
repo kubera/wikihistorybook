@@ -21,6 +21,7 @@
 
 	<dependencies>
 
+		<!-- Graph Stream -->
 		<dependency>
 			<groupId>org.graphstream</groupId>
 			<artifactId>gs-core</artifactId>
@@ -37,6 +38,14 @@
 			<version>${graphstream.version}</version>
 		</dependency>
 
+		<!-- Persistence -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31</version>
+		</dependency>
+
+		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -64,9 +73,9 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					<appendAssemblyId>true</appendAssemblyId>
 					<excludes>
 						<exclude>**/wikihistorybook/**</exclude>
-						<exclude>**/webapp/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

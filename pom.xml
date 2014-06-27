@@ -25,12 +25,14 @@
 			<organizationUrl>http://www.fhnw.ch/business/iwi</organizationUrl>
 			<roles>
 				<role>developer</role>
+				<role>scientific assistant</role>
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
 
 	<properties>
+		<wikihistorybook.version>0.1.0.BUILD-SNAPSHOT</wikihistorybook.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -38,11 +40,13 @@
 
 	<modules>
 		<module>wikihistorybook-applet</module>
+		<module>wikihistorybook-webapp</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 
+			<!-- Testing -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -58,5 +62,22 @@
 
 		</dependencies>
 	</dependencyManagement>
+
+	<profiles>
+		<!-- This profile is activated when the build is run inside eclipse. It 
+			sets a different target path for eclipse so that it does not interfere with 
+			builds from the command line. -->
+		<profile>
+			<id>m2eclipse-embedded</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<build>
+				<directory>${project.basedir}/eclipse-target</directory>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
