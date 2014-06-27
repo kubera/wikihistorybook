@@ -16,10 +16,15 @@
 	<name>WikiHistorybook WebApp</name>
 
 	<properties>
-		<wikihistorybook-war-name>wikihistorybook</wikihistorybook-war-name>
+		<wikihistorybook.war.name>wikihistorybook</wikihistorybook.war.name>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>ch.fhnw.business.iwi</groupId>
+			<artifactId>wikihistorybook-applet</artifactId>
+			<version>${wikihistorybook.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -29,7 +34,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${wikihistorybook-war-name}</finalName>
+		<finalName>${wikihistorybook.war.name}</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -52,7 +57,7 @@
 										<overWrite>true</overWrite>
 									</artifactItem>
 								</artifactItems>
-								<outputDirectory>${project.build.directory}/${wikihistorybook-war-name}/applet</outputDirectory>
+								<outputDirectory>${project.build.directory}/${wikihistorybook.war.name}/applet</outputDirectory>
 							</configuration>
 						</execution>
 					</executions>
