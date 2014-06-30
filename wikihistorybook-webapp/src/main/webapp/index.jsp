@@ -2,7 +2,7 @@
 	pageEncoding="US-ASCII"
 	import="java.util.ResourceBundle,ch.fhnw.business.iwi.wikihistorybook.WikiBookContainer"%>
 <%
-	ResourceBundle resource = ResourceBundle
+	ResourceBundle res = ResourceBundle
 			.getBundle("wikihistorybook-webapp");
 %>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 <meta name="description" content="Wikihistorybook">
 <meta name="author" content="Stefan Wagner">
 
-<title>Interactive Wiki History Book</title>
+<title><%=res.getString("webapp.main.title")%></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -60,17 +60,25 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<object type="application/x-java-applet" height="600" width="1000">
-					<param name="codebase"
-						value="/<%=resource.getString("webapp.url.base")%>/" />
+				<object type="application/x-java-applet"
+					codetype="application/java-vm"
+					classid="java:<%=WikiBookContainer.class.getName()%>.class"
+					height="600" width="900">
 					<param name="code"
 						value="<%=WikiBookContainer.class.getName()%>.class" />
+					<param name="codebase"
+						value="/<%=res.getString("webapp.url.base")%>/" />
 					<param name="archive"
-						value="wikihistorybook-applet-<%=resource.getString("webapp.version")%>-jar-with-dependencies.jar" />
+						value="<%=res.getString("webapp.applet.jar")%>" />
 					Applet failed to run. No Java plug-in was found.
 				</object>
 			</div>
 		</div>
+		<p class="text-muted">
+			&nbsp;&nbsp;&nbsp;&copy; Wiki History Book 2014 - Version Webapp
+			<%=res.getString("webapp.version")%>
+			- Version Applet
+			<%=res.getString("applet.version")%></p>
 	</div>
 </body>
 </html>

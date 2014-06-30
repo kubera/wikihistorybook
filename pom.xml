@@ -10,7 +10,7 @@
 
 	<groupId>ch.fhnw.business.iwi</groupId>
 	<artifactId>wikihistorybook</artifactId>
-	<version>0.1.0.BUILD-SNAPSHOT</version>
+	<version>0.8.0.BUILD-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Interactive Wikihistorybook</name>
@@ -32,15 +32,19 @@
 	</developers>
 
 	<properties>
-		<wikihistorybook.version>0.1.0.BUILD-SNAPSHOT</wikihistorybook.version>
+        <wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
+        <wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
+        <wikihistorybook.applet.version>0.2.0</wikihistorybook.applet.version>
+        <wikihistorybook.webapp.version>0.2.0</wikihistorybook.webapp.version>
+        
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 
 	<modules>
-		<module>wikihistorybook-applet</module>
-		<module>wikihistorybook-webapp</module>
+		<module>${wikihistorybook.applet.name}</module>
+		<module>${wikihistorybook.webapp.name}</module>
 	</modules>
 
 	<dependencyManagement>
@@ -93,20 +97,25 @@
 
 		<pluginManagement>
 			<plugins>
-			    <plugin>
-				    <groupId>org.apache.maven.plugins</groupId>
-				    <artifactId>maven-assembly-plugin</artifactId>
-				    <version>2.4</version>
-			    </plugin>
-			    <plugin>
-				    <groupId>org.apache.maven.plugins</groupId>
-				    <artifactId>maven-jarsigner-plugin</artifactId>
-				    <version>1.2</version>
-			    </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jarsigner-plugin</artifactId>
+					<version>1.2</version>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.8</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

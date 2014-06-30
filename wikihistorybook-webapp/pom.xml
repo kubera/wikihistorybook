@@ -6,24 +6,32 @@
 	<parent>
 		<groupId>ch.fhnw.business.iwi</groupId>
 		<artifactId>wikihistorybook</artifactId>
-		<version>0.1.0.BUILD-SNAPSHOT</version>
+		<version>0.8.0.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>wikihistorybook-webapp</artifactId>
+    <version>${wikihistorybook.webapp.version}</version>
 
 	<packaging>war</packaging>
 
-	<name>WikiHistorybook WebApp</name>
+	<name>Interactive Wiki History Book</name>
 
 	<properties>
 		<wikihistorybook.war.name>wikihistorybook</wikihistorybook.war.name>
+		<wikihistorybook.applet.classifier>jar-with-dependencies</wikihistorybook.applet.classifier>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>ch.fhnw.business.iwi</groupId>
-			<artifactId>wikihistorybook-applet</artifactId>
-			<version>${wikihistorybook.version}</version>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${wikihistorybook.applet.name}</artifactId>
+			<version>${wikihistorybook.applet.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -49,11 +57,11 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>ch.fhnw.business.iwi</groupId>
-									<artifactId>wikihistorybook-applet</artifactId>
-									<version>${wikihistorybook.version}</version>
-                                    <classifier>jar-with-dependencies</classifier>
-                                    <type>jar</type>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${wikihistorybook.applet.name}</artifactId>
+									<version>${wikihistorybook.applet.version}</version>
+									<classifier>${wikihistorybook.applet.classifier}</classifier>
+									<type>jar</type>
 									<overWrite>true</overWrite>
 								</artifactItem>
 							</artifactItems>
@@ -62,10 +70,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<url>http://ol19ns18004.fhnw.ch:8080/manager/text</url>
+					<server>ol19ns18004</server>
+					<path>/wikihistorybook</path>
+				</configuration>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -75,15 +93,9 @@
 							<pluginExecutions>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-dependency-plugin
-										</artifactId>
-										<versionRange>
-											[2.8,)
-										</versionRange>
+										<groupId> org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.8,)</versionRange>
 										<goals>
 											<goal>copy</goal>
 										</goals>

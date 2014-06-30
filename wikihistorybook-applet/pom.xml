@@ -6,10 +6,11 @@
 	<parent>
 		<groupId>ch.fhnw.business.iwi</groupId>
 		<artifactId>wikihistorybook</artifactId>
-		<version>0.1.0.BUILD-SNAPSHOT</version>
+		<version>0.8.0.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>wikihistorybook-applet</artifactId>
+	<version>${wikihistorybook.applet.version}</version>
 
 	<packaging>jar</packaging>
 
