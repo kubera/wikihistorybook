@@ -34,7 +34,7 @@
 	<properties>
         <wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
         <wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
-        <wikihistorybook.applet.version>0.2.0</wikihistorybook.applet.version>
+        <wikihistorybook.applet.version>0.3.0</wikihistorybook.applet.version>
         <wikihistorybook.webapp.version>0.2.0</wikihistorybook.webapp.version>
         
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,7 +85,7 @@
 	</profiles>
 
 	<build>
-		<resources>
+		<!-- resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
@@ -93,7 +93,7 @@
 					<include>${project.artifactId}.properties</include>
 				</includes>
 			</resource>
-		</resources>
+		</resources-->
 
 		<pluginManagement>
 			<plugins>

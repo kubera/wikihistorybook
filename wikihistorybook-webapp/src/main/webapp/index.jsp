@@ -75,7 +75,7 @@
 			</div>
 		</div>
 		<p class="text-muted">
-			&nbsp;&nbsp;&nbsp;&copy; Wiki History Book 2014 - Version Webapp
+			&copy; Wiki History Book 2014 - Version Webapp
 			<%=res.getString("webapp.version")%>
 			- Version Applet
 			<%=res.getString("applet.version")%></p>
