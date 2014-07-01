@@ -32,23 +32,40 @@
 	</developers>
 
 	<properties>
-        <wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
-        <wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
-        <wikihistorybook.applet.version>0.3.0</wikihistorybook.applet.version>
-        <wikihistorybook.webapp.version>0.2.0</wikihistorybook.webapp.version>
-        
+		<wikihistorybook.graph.name>wikihistorybook-graph</wikihistorybook.graph.name>
+		<wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
+		<wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
+		<wikihistorybook.graph.version>0.1.0</wikihistorybook.graph.version>
+		<wikihistorybook.applet.version>0.4.0</wikihistorybook.applet.version>
+		<wikihistorybook.webapp.version>0.2.0</wikihistorybook.webapp.version>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+
+		<graphstream.version>1.2</graphstream.version>
 	</properties>
 
 	<modules>
+		<module>${wikihistorybook.graph.name}</module>
 		<module>${wikihistorybook.applet.name}</module>
 		<module>${wikihistorybook.webapp.name}</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+
+			<!-- Graph Stream -->
+			<dependency>
+				<groupId>org.graphstream</groupId>
+				<artifactId>gs-core</artifactId>
+				<version>${graphstream.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.graphstream</groupId>
+				<artifactId>gs-algo</artifactId>
+				<version>${graphstream.version}</version>
+			</dependency>
 
 			<!-- Testing -->
 			<dependency>
@@ -90,8 +107,8 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
-                    <include>${project.artifactId}.properties</include>
-                    <include>*.*</include>
+					<include>${project.artifactId}.properties</include>
+					<include>*.*</include>
 				</includes>
 			</resource>
 		</resources>

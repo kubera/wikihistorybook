@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"
-	import="java.util.ResourceBundle,ch.fhnw.business.iwi.wikihistorybook.WikiBookContainer"%>
+	import="java.util.ResourceBundle,ch.fhnw.business.iwi.wikihistorybook.applet.WikiBookContainer"%>
 <%
 	ResourceBundle res = ResourceBundle
 			.getBundle("wikihistorybook-webapp");

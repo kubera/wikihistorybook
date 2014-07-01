@@ -16,34 +16,28 @@
 
 	<name>Wikihistorybook as an Applet</name>
 
-	<properties>
-		<graphstream.version>1.2</graphstream.version>
-	</properties>
-
 	<dependencies>
+	
+        <!-- Wikihistorybook Graph -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${wikihistorybook.graph.name}</artifactId>
+			<version>${wikihistorybook.graph.version}</version>
+		</dependency>
 
 		<!-- Graph Stream -->
 		<dependency>
 			<groupId>org.graphstream</groupId>
 			<artifactId>gs-core</artifactId>
-			<version>${graphstream.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.graphstream</groupId>
 			<artifactId>gs-algo</artifactId>
-			<version>${graphstream.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.graphstream</groupId>
 			<artifactId>gs-ui</artifactId>
 			<version>${graphstream.version}</version>
-		</dependency>
-
-		<!-- Persistence -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.31</version>
 		</dependency>
 
 		<!-- Testing -->

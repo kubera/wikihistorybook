@@ -1,4 +1,4 @@
-package ch.fhnw.business.iwi.wikihistorybook;
+package ch.fhnw.business.iwi.wikihistorybook.applet;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

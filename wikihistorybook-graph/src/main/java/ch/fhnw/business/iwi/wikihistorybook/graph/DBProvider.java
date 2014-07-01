@@ -1,4 +1,4 @@
-package ch.fhnw.business.iwi.wikihistorybook;
+package ch.fhnw.business.iwi.wikihistorybook.graph;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
