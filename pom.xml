@@ -85,15 +85,16 @@
 	</profiles>
 
 	<build>
-		<!-- resources>
+		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>${project.artifactId}.properties</include>
+                    <include>${project.artifactId}.properties</include>
+                    <include>*.*</include>
 				</includes>
 			</resource>
-		</resources-->
+		</resources>
 
 		<pluginManagement>
 			<plugins>
