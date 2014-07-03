@@ -2,5 +2,5 @@
 .classpath
 .settings/
 target/
-/.metadata/
+.metadata/
 eclipse-target/
