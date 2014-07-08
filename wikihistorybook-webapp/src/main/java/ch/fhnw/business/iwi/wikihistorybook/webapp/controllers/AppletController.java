@@ -1,11 +1,11 @@
-package ch.fhnw.business.iwi.wikihistorybook.webapp;
+package ch.fhnw.business.iwi.wikihistorybook.webapp.controllers;
 
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 
 import ch.fhnw.business.iwi.wikihistorybook.applet.WikiBookContainer;
 
-@Named
-public class AppletBean {
+@ManagedBean
+public class AppletController {
 
 	public String getAppletClassName(){
 	    return WikiBookContainer.class.getName();
