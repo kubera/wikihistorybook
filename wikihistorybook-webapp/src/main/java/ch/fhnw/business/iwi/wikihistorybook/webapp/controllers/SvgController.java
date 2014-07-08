@@ -35,6 +35,7 @@ public class SvgController {
     }
 
     private ByteArrayOutputStream createSvgGraph() {
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         GraphFactory graphFactory = new GraphFactory(-1111);
