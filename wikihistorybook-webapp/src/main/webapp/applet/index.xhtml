@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="/WEB-INF/templates/commonLayout.xhtml">
+
+		<ui:param name="pageTitle"
+			value="Client-side graph processing with a Java-Applet" />
+		<ui:param name="currentPage" value="applet" />
+
+		<ui:define name="content">
+
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<strong>Warning!</strong> Probably you'll need to explicitly edit
+				your local <a
+					href="https://www.java.com/en/download/help/java_blocked.xml">java
+					security policy</a> to run the applet. Find the <i>Java Control
+					Panel</i> on your local machine and add this URL to the <i>Security
+					Exception Site List</i>.
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<object type="application/x-java-applet"
+						codetype="application/java-vm"
+						classid="java:#{appletController.appletClassName}.class" height="600"
+						width="900">
+						<param name="code" value="#{appletController.appletClassName}.class" />
+						<param name="codebase" value="/#{properties['webapp.url.base']}/applet/" />
+						<param name="archive" value="#{properties['webapp.applet.jar']}" />
+						Applet failed to run. No Java plug-in was found.
+					</object>
+				</div>
+			</div>
+
+		</ui:define>
+
+		<ui:define name="sidebar-module">
+
+			<p>
+				Java 6 compiled <a href="http://en.wikipedia.org/wiki/Java_applet">Applet</a>
+			</p>
+			<p>Client-side executed</p>
+
+			<h4>Known Problems</h4>
+			<p>Apple Safari and Google Chrome doesn't run the applet</p>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

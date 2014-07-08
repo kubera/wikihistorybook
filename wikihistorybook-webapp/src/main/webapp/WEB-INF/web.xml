@@ -46,4 +46,8 @@
 		<servlet-name>svgServlet</servlet-name>
 		<url-pattern>/gensvg/*</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/wikihistorybook.taglib.xml</param-value>
+	</context-param>
 </web-app>

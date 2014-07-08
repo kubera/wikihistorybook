@@ -140,7 +140,7 @@
 									<overWrite>true</overWrite>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>${project.build.directory}/${wikihistorybook.war.name}</outputDirectory>
+							<outputDirectory>${project.build.directory}/${wikihistorybook.war.name}/applet/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

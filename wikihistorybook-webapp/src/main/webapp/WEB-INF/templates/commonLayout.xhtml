@@ -4,27 +4,54 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
+
 	<ui:insert name="header">
 		<ui:include src="commonHeader.xhtml"></ui:include>
 	</ui:insert>
+
 </h:head>
 <h:body>
+
 	<div id="navigation">
 		<ui:insert name="navigation">
 			<ui:include src="commonNavigation.xhtml"></ui:include>
 		</ui:insert>
 	</div>
+
 	<div class="container">
-		<div id="content">
-			<ui:insert name="content">
-				<ui:include src="commonContent.xhtml"></ui:include>
-			</ui:insert>
+
+		<div class="blog-header">
+			<p class="lead blog-title">#{pageTitle}</p>
 		</div>
+
+		<div class="col-sm-10">
+
+			<div id="content">
+				<ui:insert name="content">
+					<ui:include src="commonContent.xhtml"></ui:include>
+				</ui:insert>
+			</div>
+
+		</div>
+
+		<div class="col-sm-2 blog-sidebar bg-info">
+
+			<div class="sidebar-module sidebar-module-inset">
+				<h4>Technology Stack</h4>
+				<ui:insert name="sidebar-module" />
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="container">
 		<div id="footer">
 			<ui:insert name="footer">
 				<ui:include src="commonFooter.xhtml"></ui:include>
 			</ui:insert>
 		</div>
 	</div>
+
 </h:body>
 </html>

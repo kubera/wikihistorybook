@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:wikihistorybook="http://www.fhnw.ch/business/iwi/facelet">
 <body>
 	<ui:composition>
 
@@ -14,13 +15,14 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Wiki History Book</a>
+					<a class="navbar-brand" href="/#{properties['webapp.url.base']}/">Wiki History Book</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
+
+                        <wikihistorybook:alternative name="Applet" />
+                        <wikihistorybook:alternative name="SVG" />
+
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
