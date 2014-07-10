@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
 	<ui:composition template="/WEB-INF/templates/commonLayout.xhtml">
 
-        <ui:param name="pageTitle" value="Server-side Image processing" />
+		<ui:param name="pageTitle" value="Server-side Image processing" />
 		<ui:param name="currentPage" value="svg" />
 
 		<ui:define name="content">
 
-			<h:graphicImage id="svgImg"
-				value="/gensvg/#{svgController.uniqueSvgName}" />
+			<div id="slider">
+				<span id="min"></span> <span id="value"></span> <span id="middle"></span> <span id="max"></span>
+			</div>
+
+			<br></br>
+
+			<h:graphicImage id="svgImg" value="/gensvg/#{svgController.uniqueSvgName}" />
+
+			<h:outputStylesheet library="css" name="jquery-ui-1.11.0.custom.css" />
+			<h:outputScript library="js" name="jquery-1.11.1.min.js" target="head" />
+			<h:outputScript library="js" name="jquery-ui-1.11.0.custom.min.js" target="head" />
+			<h:outputScript library="js" name="wikihistorybook.js" target="head" />
+
+			<script type="text/javascript">
+				$(setupSlider($));
+			</script>
 
 		</ui:define>
 
 		<ui:define name="sidebar-module">
 
 			<p>
-				Server-side graph processing with <a
-					href="http://graphstream-project.org/">graph-stream</a>
+				Server-side graph processing with <a href="http://graphstream-project.org/">graph-stream</a>
 			</p>
 			<p>
-				Client-side image rendering with <a
-					href="http://www.w3.org/Graphics/SVG/">SVG</a>
+				Client-side image rendering with <a href="http://www.w3.org/Graphics/SVG/">SVG</a>
 			</p>
 			<h4>Precondition</h4>
 			<p>All current browser should support SVG</p>

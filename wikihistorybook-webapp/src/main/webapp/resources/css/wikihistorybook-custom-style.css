@@ -29,3 +29,10 @@ body {
   padding-top: 40px;
 	
 }
+
+#slider{ position: relative; }
+#slider span { position: absolute; }
+#min { top: -25px; left: 0px; }
+#max { top: -25px; right: 0px; }
+#middle { top: -25px; left: 49.5%; }
+#value {  top: 15px; z-index: 5; }

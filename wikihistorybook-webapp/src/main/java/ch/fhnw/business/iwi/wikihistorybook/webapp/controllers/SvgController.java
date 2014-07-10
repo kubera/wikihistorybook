@@ -9,8 +9,11 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.graphstream.algorithm.Toolkit;
 import org.graphstream.graph.Graph;
 import org.graphstream.stream.file.FileSinkSVG2;
+import org.graphstream.ui.layout.Layout;
+import org.graphstream.ui.layout.Layouts;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
@@ -35,7 +38,6 @@ public class SvgController {
     }
 
     private ByteArrayOutputStream createSvgGraph() {
-        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         GraphFactory graphFactory = new GraphFactory(-1111);
@@ -44,6 +46,8 @@ public class SvgController {
             @Override
             public void showGraph(Graph graph) {
                 FileSinkSVG2 svg = new FileSinkSVG2();
+                Layout layout = Layouts.newLayoutAlgorithm();
+                Toolkit.computeLayout(graph, layout, 1.0);
                 try {
                     svg.writeAll(graph, os);
                 } catch (IOException e) {

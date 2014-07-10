@@ -6,7 +6,6 @@
     <bean id="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="urlMap">
             <map>
-                <entry key="/styles/**" value-ref="defaultServletHttpRequestHandler"/>
                 <entry key="/applet/*.jar" value-ref="defaultServletHttpRequestHandler"/>
             </map>
         </property>
