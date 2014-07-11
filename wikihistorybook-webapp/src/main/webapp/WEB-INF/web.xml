@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="3.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	version="3.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>Interactive Wikihistorybook</display-name>
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
@@ -15,6 +17,9 @@
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>ch.fhnw.business.iwi.wikihistorybook.webapp.SessionCounterListener</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>

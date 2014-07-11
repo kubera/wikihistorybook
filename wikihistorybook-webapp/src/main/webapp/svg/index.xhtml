@@ -16,15 +16,18 @@
 
 			<br></br>
 
-			<h:graphicImage id="svgImg" value="/gensvg/#{svgController.uniqueSvgName}" />
+			<div id="imageWrap">
+				<h:graphicImage id="svgImg" value="/gensvg/#{svgController.uniqueSvgName}" />
+			</div>
 
 			<h:outputStylesheet library="css" name="jquery-ui-1.11.0.custom.css" />
 			<h:outputScript library="js" name="jquery-1.11.1.min.js" target="head" />
-			<h:outputScript library="js" name="jquery-ui-1.11.0.custom.min.js" target="head" />
+            <h:outputScript library="js" name="jquery-ui-1.11.0.custom.min.js" target="head" />
+            <h:outputScript library="js" name="jquery.blockUI.js" target="head" />
 			<h:outputScript library="js" name="wikihistorybook.js" target="head" />
 
 			<script type="text/javascript">
-				$(setupSlider($));
+				$(setupSlider($, '/#{properties['webapp.url.base']}'));
 			</script>
 
 		</ui:define>
@@ -36,6 +39,9 @@
 			</p>
 			<p>
 				Client-side image rendering with <a href="http://www.w3.org/Graphics/SVG/">SVG</a>
+			</p>
+			<p>
+				Image update with <a href="http://learn.jquery.com/ajax/">jQuery Ajax Requests</a>
 			</p>
 			<h4>Precondition</h4>
 			<p>All current browser should support SVG</p>
