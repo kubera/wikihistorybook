@@ -20,9 +20,9 @@ public class GraphFactory {
 	private double nodeNum;
 	private double conNum;
 
-	public GraphFactory(int initYear) {
+	public GraphFactory(int initYear, DBProvider dbProvider) {
 		super();
-		db = DBProvider.getInstance();
+		db = dbProvider;
 		graph = new AdjacencyListGraph("Wiki");
 		cur_year = initYear;
 	}

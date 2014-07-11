@@ -4,6 +4,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
@@ -29,7 +30,7 @@ class TimelineManager implements ChangeListener {
 					e1.printStackTrace();
 				}
 			}
-			graphFactory = new GraphFactory(time);
+			graphFactory = new GraphFactory(time, DBProvider.getInstance());
 			thread = new GraphThread(wikiBookContainer, graphFactory);
 			thread.start();
 		}

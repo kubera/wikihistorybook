@@ -10,15 +10,20 @@ import org.graphstream.graph.Graph;
 import org.graphstream.stream.file.FileSinkSVG2;
 import org.graphstream.ui.layout.Layout;
 import org.graphstream.ui.layout.Layouts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
 @Component
 @Scope("session")
 public class SvgGraphCreator {
+    
+    @Autowired
+    private Persistence persistence;
     
     private Map<String, ByteArrayOutputStream> images = new HashMap<String, ByteArrayOutputStream>();
 
@@ -40,7 +45,7 @@ public class SvgGraphCreator {
         GraphFactory graphFactory = null;
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
-            graphFactory = new GraphFactory(year);
+            graphFactory = new GraphFactory(year, persistence.getDBProvider());
             IWikiBookContainer wikiBookContainer = new IWikiBookContainer() {
 
                 @Override

@@ -31,6 +31,7 @@ import org.graphstream.ui.swingViewer.View;
 import org.graphstream.ui.swingViewer.Viewer;
 import org.graphstream.ui.swingViewer.Viewer.ThreadingModel;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
@@ -127,7 +128,7 @@ public class WikiBookContainer extends JApplet implements IWikiBookContainer {
 		sidePanel.add(btnPnl);
 		sidePanel.add(outputText);
 
-		graphFactory = new GraphFactory(SLIDER_INIT);
+		graphFactory = new GraphFactory(SLIDER_INIT, DBProvider.getInstance());
 		GraphThread thread = new GraphThread(this, graphFactory);
 		thread.start();
 

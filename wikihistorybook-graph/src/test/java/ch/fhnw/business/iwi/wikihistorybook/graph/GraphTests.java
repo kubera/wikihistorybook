@@ -15,7 +15,7 @@ public class GraphTests {
     @Test
     public void simpleTest() {
         final FileSinkSVG2 svg = new FileSinkSVG2();
-        GraphFactory graphFactory = new GraphFactory(0);
+        GraphFactory graphFactory = new GraphFactory(0, DBProvider.getInstance());
         graphFactory.run(new IWikiBookContainer() {
 
             @Override
