@@ -2,6 +2,7 @@ package ch.fhnw.business.iwi.wikihistorybook.webapp.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,27 +21,29 @@ import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
 @Component
 @Scope("session")
-public class SvgGraphCreator {
-    
+public class SvgGraphCreator implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Autowired
     private Persistence persistence;
-    
-    private Map<String, ByteArrayOutputStream> images = new HashMap<String, ByteArrayOutputStream>();
+
+    private transient Map<String, ByteArrayOutputStream> images;
 
     public String createSvgStreamAndStoreToSession(int year) {
         String imageName = createImageName(year);
-        ByteArrayOutputStream svgStream = images.get(imageName);
+        ByteArrayOutputStream svgStream = getImages().get(imageName);
         if (svgStream == null) {
             svgStream = createSvgGraph(year);
-            images.put(imageName, svgStream);
+            getImages().put(imageName, svgStream);
         }
         return imageName;
     }
 
     public ByteArrayOutputStream getSvgStream(String imageName) {
-        return images.get(imageName);
+        return getImages().get(imageName);
     }
-    
+
     public ByteArrayOutputStream createSvgGraph(int year) {
         GraphFactory graphFactory = null;
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -82,4 +85,10 @@ public class SvgGraphCreator {
         return String.format("gen-img_%d.svg", year);
     }
 
+    private Map<String, ByteArrayOutputStream> getImages() {
+        if (images == null) {
+            images = new HashMap<String, ByteArrayOutputStream>();
+        }
+        return images;
+    }
 }

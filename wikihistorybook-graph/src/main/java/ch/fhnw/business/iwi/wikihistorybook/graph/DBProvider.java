@@ -78,6 +78,8 @@ public class DBProvider {
 		} catch (SQLException e) {
 			System.out.println("Connection close Error");
 			e.printStackTrace();
+		} finally {
+                    connection = null;
 		}
 	}
 
