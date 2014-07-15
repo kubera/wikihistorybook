@@ -25,6 +25,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
+import org.apache.log4j.Logger;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swingViewer.View;
@@ -37,7 +38,8 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
 public class WikiBookContainer extends JApplet implements IWikiBookContainer {
 
-	private static final long serialVersionUID = 1L;
+        private final static Logger LOGGER = Logger.getLogger(WikiBookContainer.class.getName()); 
+        private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JPanel sidePanel;
 	private JPanel btnPnl;
@@ -65,7 +67,7 @@ public class WikiBookContainer extends JApplet implements IWikiBookContainer {
             try {
                 System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
             } catch (Exception e) {
-                System.out.println("can't set system property 'org.graphstream.ui.renderer' " + e.getClass().getName());
+                LOGGER.warn("can't set system property 'org.graphstream.ui.renderer' " + e.getClass().getName());
             }
 
 		panel = new JPanel(new java.awt.BorderLayout(1, 1));
@@ -84,11 +86,9 @@ public class WikiBookContainer extends JApplet implements IWikiBookContainer {
 					try {
 						Desktop.getDesktop().browse(e.getURL().toURI());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LOGGER.error( "failed!", e1 );
 					} catch (URISyntaxException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LOGGER.error( "failed!", e1 );
 					}
 				}
 			}

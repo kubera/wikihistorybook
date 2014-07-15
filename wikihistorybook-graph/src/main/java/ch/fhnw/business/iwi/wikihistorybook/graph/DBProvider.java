@@ -7,8 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
 public class DBProvider {
 
+        private final static Logger LOGGER = Logger.getLogger(DBProvider.class.getName()); 
 	//singleton
 	private DBProvider() {}
 	
@@ -59,11 +62,11 @@ public class DBProvider {
 						ResultSet.CONCUR_READ_ONLY);
 
 			} catch (ClassNotFoundException e) {
-				System.out.println("Class not found!");
+				LOGGER.error("Class not found!");
 			} catch (SQLException e) {
-				System.out.println("SQL Exception! Connection failed");
+				LOGGER.error("SQL Exception! Connection failed");
 			} catch (Exception ex) {
-				System.out.println("Exception");
+				LOGGER.error("Exception");
 			}
 		return connection;		
 	}
@@ -76,8 +79,8 @@ public class DBProvider {
 				connection.close();
 			}
 		} catch (SQLException e) {
-			System.out.println("Connection close Error");
-			e.printStackTrace();
+			LOGGER.error("Connection close Error");
+			LOGGER.debug("failed", e);
 		} finally {
                     connection = null;
 		}
@@ -91,8 +94,8 @@ public class DBProvider {
 			statement = connection.createStatement();
 			res = statement.executeQuery(query);
 		} catch (SQLException e) {
-			System.out.println("Execute Query Error (executeQuery)");
-			e.printStackTrace();
+			LOGGER.error("Execute Query Error (executeQuery)");
+			LOGGER.debug("failed", e);
 		}
 		
 		return res;
@@ -111,8 +114,8 @@ public class DBProvider {
 			peopleOfYear.setInt(3, maxNodes);
 			res = peopleOfYear.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("SQL Error (getPeople)");
-			e.printStackTrace();
+			LOGGER.error("SQL Error (getPeople)");
+			LOGGER.debug("failed", e);
 		}
 		
 		return res;
@@ -131,8 +134,8 @@ public class DBProvider {
 			connectionsFrom.setInt(3, year);
 			res = connectionsFrom.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("SQL Error (getConnectionsFrom)");
-			e.printStackTrace();
+			LOGGER.error("SQL Error (getConnectionsFrom)");
+			LOGGER.debug("failed", e);
 		}
 		
 		return res;
@@ -152,8 +155,8 @@ public class DBProvider {
 			conOfYear.setInt(5, year);
 			res = conOfYear.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("SQL Error (getConnections)");
-			e.printStackTrace();
+			LOGGER.error("SQL Error (getConnections)");
+			LOGGER.debug("failed", e);
 		}
 		
 		return res;

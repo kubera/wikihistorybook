@@ -33,19 +33,20 @@
 
 	<properties>
 		<wikihistorybook.graph.name>wikihistorybook-graph</wikihistorybook.graph.name>
-        <wikihistorybook.graph.version>0.1.0</wikihistorybook.graph.version>
+        <wikihistorybook.graph.version>0.2.0</wikihistorybook.graph.version>
 		<wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
         <wikihistorybook.applet.version>0.4.0</wikihistorybook.applet.version>
         <wikihistorybook.svg.name>wikihistorybook-svg</wikihistorybook.svg.name>
         <wikihistorybook.svg.version>0.2.0</wikihistorybook.svg.version>
         <wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
-        <wikihistorybook.webapp.version>0.4.0</wikihistorybook.webapp.version>
+        <wikihistorybook.webapp.version>0.5.0</wikihistorybook.webapp.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 
-		<graphstream.version>1.2</graphstream.version>
+        <graphstream.version>1.2</graphstream.version>
+        <slf4j.version>1.7.7</slf4j.version>
 	</properties>
 
 	<modules>
@@ -69,6 +70,18 @@
 				<artifactId>gs-algo</artifactId>
 				<version>${graphstream.version}</version>
 			</dependency>
+			
+			<!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 
 			<!-- Testing -->
 			<dependency>

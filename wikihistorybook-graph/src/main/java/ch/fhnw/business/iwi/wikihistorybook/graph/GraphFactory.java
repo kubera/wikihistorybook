@@ -3,6 +3,7 @@ package ch.fhnw.business.iwi.wikihistorybook.graph;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.graphstream.graph.EdgeRejectedException;
 import org.graphstream.graph.ElementNotFoundException;
 import org.graphstream.graph.Graph;
@@ -12,7 +13,9 @@ import org.graphstream.graph.implementations.AdjacencyListGraph;
 
 public class GraphFactory {
 
-	private Graph graph;
+        private final static Logger LOGGER = Logger.getLogger(GraphFactory.class.getName());
+
+        private Graph graph;
 	private DBProvider db;
 	private int cur_year;
 	private ResultSet people;
@@ -61,13 +64,13 @@ public class GraphFactory {
 					n.addAttribute("year_to", people.getString("year_to"));
 
 				} catch (SQLException e) {
-					e.printStackTrace();
+					LOGGER.debug("failed", e);
 				} catch (IdAlreadyInUseException f) {
-					f.printStackTrace();
+					LOGGER.debug("failed", f);
 				}
 			}
 		} catch (SQLException e3) {
-			e3.printStackTrace();
+			LOGGER.debug("failed", e3);
 		}
 		return num;
 	}
@@ -92,7 +95,7 @@ public class GraphFactory {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.debug("failed", e);
 		}
 
 		return num;
@@ -129,12 +132,12 @@ public class GraphFactory {
 					graph.getNode(people.getString("id")).changeAttribute(
 							"layout.weight", weight);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					LOGGER.debug("failed", e);
 				}
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.debug("failed", e);
 		}
 	}
 

@@ -6,6 +6,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.View;
@@ -14,7 +15,8 @@ import org.graphstream.ui.swingViewer.Viewer;
 public class WikiHistApplet extends JApplet {
 
     private static final long serialVersionUID = 1L;
-
+    private final static Logger LOGGER = Logger.getLogger(WikiHistApplet.class.getName()); 
+    
     public void init() {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
@@ -23,7 +25,7 @@ public class WikiHistApplet extends JApplet {
                 }
             });
         } catch (Exception exc) {
-            System.out.println("Can't create because of " + exc);
+            LOGGER.warn("Can't create because of " + exc);
         }
     }
 

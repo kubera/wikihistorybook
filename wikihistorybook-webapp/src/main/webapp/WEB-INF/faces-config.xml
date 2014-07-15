@@ -10,5 +10,17 @@
 			<base-name>wikihistorybook-webapp</base-name>
 			<var>properties</var>
 		</resource-bundle>
+		
+		<!-- Application is started -->
+        <system-event-listener>
+            <system-event-listener-class>ch.fhnw.business.iwi.wikihistorybook.webapp.WikiHistoryBookSystemEventListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>                       
+        </system-event-listener>     
+ 
+        <!-- Before Application is shut down -->
+        <system-event-listener>
+            <system-event-listener-class>ch.fhnw.business.iwi.wikihistorybook.webapp.WikiHistoryBookSystemEventListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PreDestroyApplicationEvent</system-event-class>
+        </system-event-listener> 
 	</application>
 </faces-config>

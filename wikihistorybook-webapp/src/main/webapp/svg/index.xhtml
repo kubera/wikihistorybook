@@ -21,11 +21,11 @@
 				<h:graphicImage id="svgImg" value="/gensvg/#{svgController.uniqueSvgName}" />
 			</div>
 
-			<h:outputStylesheet library="css" name="jquery-ui-1.11.0.custom.css" />
-			<h:outputScript library="js" name="jquery-1.11.1.min.js" target="head" />
-            <h:outputScript library="js" name="jquery-ui-1.11.0.custom.min.js" target="head" />
-            <h:outputScript library="js" name="jquery.blockUI.js" target="head" />
-			<h:outputScript library="js" name="wikihistorybook.js" target="head" />
+			<h:outputStylesheet name="css/jquery-ui-1.11.0.custom.css" />
+			<h:outputScript name="js/jquery-1.11.1.min.js" target="head" />
+            <h:outputScript name="js/jquery-ui-1.11.0.custom.min.js" target="head" />
+            <h:outputScript name="js/jquery.blockUI.js" target="head" />
+			<h:outputScript name="js/wikihistorybook.js" target="head" />
 
 			<script type="text/javascript">
 				$(setupSlider('/#{properties['webapp.url.base']}'));
