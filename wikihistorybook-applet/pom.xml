@@ -60,6 +60,30 @@
 
 	<build>
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <configuration>
+                    <keystore>src/main/resources/wikihistorybook-keystore.jks</keystore>
+                    <alias>wikihistorybook</alias>
+                    <storepass>ikiwyrotsihkoob</storepass>
+                    <keypass>ikiwyrotsihkoob</keypass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -78,30 +102,6 @@
 						<phase>package</phase>
 						<goals>
 							<goal>attached</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jarsigner-plugin</artifactId>
-				<configuration>
-					<keystore>src/main/resources/wikihistorybook-keystore.jks</keystore>
-					<alias>wikihistorybook</alias>
-					<storepass>ikiwyrotsihkoob</storepass>
-					<keypass>ikiwyrotsihkoob</keypass>
-				</configuration>
-				<executions>
-					<execution>
-						<id>sign</id>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>verify</id>
-						<goals>
-							<goal>verify</goal>
 						</goals>
 					</execution>
 				</executions>

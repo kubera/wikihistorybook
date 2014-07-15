@@ -62,8 +62,11 @@ public class WikiBookContainer extends JApplet implements IWikiBookContainer {
 	private Graph graph;
 
 	public WikiBookContainer() {
-		System.setProperty("org.graphstream.ui.renderer",
-				"org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+            try {
+                System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+            } catch (Exception e) {
+                System.out.println("can't set system property 'org.graphstream.ui.renderer' " + e.getClass().getName());
+            }
 
 		panel = new JPanel(new java.awt.BorderLayout(1, 1));
 		sidePanel = new JPanel(new java.awt.GridLayout(0, 1));
