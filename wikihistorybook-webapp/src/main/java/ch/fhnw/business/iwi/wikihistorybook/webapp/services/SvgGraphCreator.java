@@ -1,22 +1,15 @@
 package ch.fhnw.business.iwi.wikihistorybook.webapp.services;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.graphstream.algorithm.Toolkit;
-import org.graphstream.graph.Graph;
-import org.graphstream.stream.file.FileSinkSVG2;
-import org.graphstream.ui.layout.Layout;
-import org.graphstream.ui.layout.Layouts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
-import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
+import ch.fhnw.business.iwi.wikihistorybook.svg.SvgWikiHistoryBook;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
 @Component
@@ -45,40 +38,8 @@ public class SvgGraphCreator implements Serializable {
     }
 
     public ByteArrayOutputStream createSvgGraph(int year) {
-        GraphFactory graphFactory = null;
-        final ByteArrayOutputStream os = new ByteArrayOutputStream();
-        try {
-            graphFactory = new GraphFactory(year, persistence.getDBProvider());
-            IWikiBookContainer wikiBookContainer = new IWikiBookContainer() {
-
-                @Override
-                public void showGraph(Graph graph) {
-                    FileSinkSVG2 svg = new FileSinkSVG2();
-                    Layout layout = Layouts.newLayoutAlgorithm();
-                    Toolkit.computeLayout(graph, layout, 1.0);
-                    try {
-                        svg.writeAll(graph, os);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void setYearText(String string) {
-                }
-
-                @Override
-                public int getMaxNodes() {
-                    return 1000;
-                }
-            };
-            graphFactory.run(wikiBookContainer);
-        } catch (Exception e) {
-            if (graphFactory != null) {
-                graphFactory.getDB().closeConnection();
-            }
-        }
-        return os;
+        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, persistence.getDBProvider());
+        return svgWikiHistoryBook.getSvgStream();
     }
 
     private String createImageName(int year) {
