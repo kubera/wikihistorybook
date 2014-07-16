@@ -5,10 +5,17 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.svg.SvgWikiHistoryBook;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
@@ -38,12 +45,23 @@ public class SvgGraphCreator implements Serializable {
     }
 
     public ByteArrayOutputStream createSvgGraph(int year) {
-        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, persistence.getDBProvider());
+        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, getDBProvider());
         return svgWikiHistoryBook.getSvgStream();
     }
 
     private String createImageName(int year) {
         return String.format("gen-img_%d.svg", year);
+    }
+
+    private DBProvider getDBProvider() {
+        if (persistence == null) {
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+                    .getContext();
+            WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            AutowireCapableBeanFactory ctx = context.getAutowireCapableBeanFactory();
+            ctx.autowireBean(this);
+        }
+        return persistence.getDBProvider();
     }
 
     private Map<String, ByteArrayOutputStream> getImages() {

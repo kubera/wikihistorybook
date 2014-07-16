@@ -17,12 +17,29 @@
 	<name>Wikihistorybook as an SVG</name>
 
 	<dependencies>
-	
-        <!-- Wikihistorybook Graph -->
+
+		<!-- Wikihistorybook Graph -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>${wikihistorybook.graph.name}</artifactId>
 			<version>${wikihistorybook.graph.version}</version>
+		</dependency>
+
+		<!-- XML -->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Testing -->
@@ -35,15 +52,15 @@
 			<artifactId>fest-assert</artifactId>
 		</dependency>
 
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

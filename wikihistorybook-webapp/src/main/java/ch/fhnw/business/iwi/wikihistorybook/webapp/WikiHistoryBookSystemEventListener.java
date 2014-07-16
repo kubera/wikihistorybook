@@ -1,13 +1,13 @@
 package ch.fhnw.business.iwi.wikihistorybook.webapp;
 
-import org.apache.log4j.Logger;
-
 import javax.faces.application.Application;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
+
+import org.apache.log4j.Logger;
 
 public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 

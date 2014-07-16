@@ -54,6 +54,7 @@ public class SvgWikiHistoryBook implements IWikiBookContainer {
     }
 
     public ByteArrayOutputStream getSvgStream() {
-        return svgStream;
+        SvgManipulator manipulator = new SvgManipulator(svgStream);
+        return manipulator.manipulate();
     }
 }

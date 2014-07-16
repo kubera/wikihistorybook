@@ -34,6 +34,7 @@ public class SessionCounterListener implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent arg0) {
         totalActiveSessions--;
         if (!hasActiveSessions()) {
+            checkDependencyInjection(arg0.getSession().getServletContext());
             persistence.disconnect();
         }
     }
