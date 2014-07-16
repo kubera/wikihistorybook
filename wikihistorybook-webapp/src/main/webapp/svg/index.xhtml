@@ -17,9 +17,7 @@
 
 			<br></br>
 
-			<div id="imageWrap">
-				<h:graphicImage id="svgImg" value="/gensvg/#{svgController.uniqueSvgName}" />
-			</div>
+			<div id="imageWrap"><h:outputText value="#{svgController.svgStream}" escape="false" /></div>
 
 			<h:outputStylesheet name="css/jquery-ui-1.11.0.custom.css" />
 			<h:outputScript name="js/jquery-1.11.1.min.js" target="head" />

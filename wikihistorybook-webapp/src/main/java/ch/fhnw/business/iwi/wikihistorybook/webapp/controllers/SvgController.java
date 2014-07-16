@@ -21,4 +21,8 @@ public class SvgController implements Serializable {
         return svgGraphCreator.createSvgStreamAndStoreToSession(0);
     }
 
+    public String getSvgStream() {
+        String name = getUniqueSvgName();
+        return svgGraphCreator.getSvgStream(name).toString();
+    }
 }

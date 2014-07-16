@@ -14,7 +14,7 @@ function setupSlider(url) {
 function changeAction(url) {
 	var genImgUrl = url + '/gensvg/';
 	return function(event, ui) {
-		$('#svgImg').hide();
+		$('#imageWrap').hide();
 		$.blockUI();
 		$.ajax({
 			type : "POST",
@@ -23,11 +23,16 @@ function changeAction(url) {
 				year : ui.value
 			},
 			success : function(imageName) {
-				var i = $('<img />').attr('src', genImgUrl + imageName).load(
-						function() {
-							$('#svgImg').attr('src', i.attr('src'));
-							$('#svgImg').fadeIn();
-							$.unblockUI();
+				$('#imageWrap').empty();
+				$('#imageWrap').load(genImgUrl + imageName,
+						function(response, status, xhr) {
+							if (status == "error") {
+								alert("could not reload svg");
+							}
+							if (status == "success") {
+								$('#imageWrap').fadeIn();
+								$.unblockUI();
+							}
 						});
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -38,7 +43,6 @@ function changeAction(url) {
 		});
 	};
 }
-
 function slideAction(event, ui) {
 	var v = 50;
 	if (ui.value > 0) {
