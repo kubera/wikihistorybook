@@ -1,54 +1,25 @@
 package ch.fhnw.business.iwi.wikihistorybook.svg;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.xml.stream.FactoryConfigurationError;
-import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-public class SvgSaxDefaultHandler extends DefaultHandler {
+public class SvgSaxToolTipHandler extends SvgSaxAbstractHandler {
 
-    private final static Logger LOGGER = Logger.getLogger(SvgSaxDefaultHandler.class);
+    private final static Logger LOGGER = Logger.getLogger(SvgSaxToolTipHandler.class);
 
-    private ByteArrayOutputStream outputStream;
-    private XMLStreamWriter out;
+    private Map<String, String> rememberNodes = new HashMap<String, String>();
 
     private boolean gRootNodeSeen = false;
 
-    public SvgSaxDefaultHandler(ByteArrayOutputStream outputStream) {
-        this.outputStream = outputStream;
-    }
-
-    @Override
-    public void startDocument() throws SAXException {
-        try {
-            out = XMLOutputFactory.newInstance().createXMLStreamWriter(new OutputStreamWriter(outputStream, "utf-8"));
-            out.writeStartDocument("UTF-8", "1.0");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (XMLStreamException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (FactoryConfigurationError e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public void endDocument() throws SAXException {
-        try {
-            out.writeEndDocument();
-            out.close();
-        } catch (XMLStreamException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+    public SvgSaxToolTipHandler(ByteArrayOutputStream outputStream) {
+        super(outputStream);
     }
 
     @Override
@@ -72,6 +43,7 @@ public class SvgSaxDefaultHandler extends DefaultHandler {
         }
         if ("g".equals(qName) && id != null && id.startsWith("node-")) {
             gRootNodeSeen = true;
+            rememberNodes.put("current", id);
         }
     }
 
@@ -97,14 +69,25 @@ public class SvgSaxDefaultHandler extends DefaultHandler {
         try {
             if (addTooltip) {
                 out.writeStartElement("title");
-            }
-            out.writeCharacters(ch, start, length);
-            if (addTooltip) {
+                out.writeCharacters(text.replace('_', ' '));
                 out.writeEndElement();
+                String nodeId = rememberNodes.get("current");
+                rememberNodes.put(nodeId.trim(), text);
+            } else {
+                out.writeCharacters(ch, start, length);
             }
         } catch (XMLStreamException e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    public Map<String, String> getRememberNodes() {
+        return rememberNodes;
+    }
+
+    @Override
+    protected Logger getLogger() {
+        return LOGGER;
     }
 
 }
