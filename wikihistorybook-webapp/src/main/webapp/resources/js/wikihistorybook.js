@@ -4,11 +4,16 @@ function setupSlider(url) {
 		max : 2000,
 		value : 0,
 		change : changeAction(url),
-		slide : slideAction
+		slide : slideAction,
+		create: svgPan()
 	});
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
 	$('#middle').text(0);
+};
+
+function svgPan() {
+	$('svg').svgPan('root', true, true, false, 3);
 };
 
 function changeAction(url) {
@@ -31,8 +36,9 @@ function changeAction(url) {
 							}
 							if (status == "success") {
 								$('#imageWrap').fadeIn();
-								$.unblockUI();
 							}
+							$.unblockUI();
+							svgPan();
 						});
 			},
 			error : function(jqXHR, textStatus, errorThrown) {

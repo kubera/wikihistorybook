@@ -7,28 +7,60 @@
 	<ui:composition template="/WEB-INF/templates/commonLayout.xhtml">
 
 		<ui:param name="pageTitle"
-			value="Study alternatives for runtime environments for the Wikihistorybook" />
-        <ui:param name="currentPage" value="webapp" />
-        <ui:param name="alternativeVersion" value="#{properties['webapp.version']}" />
+			value="Study alternatives of runtime environments for the Wikihistorybook" />
+		<ui:param name="currentPage" value="webapp" />
+		<ui:param name="alternativeVersion"
+			value="#{properties['webapp.version']}" />
 
 		<ui:define name="content">
 
-			<p>
-				Find out more of the idea of the Wikihistorybook <a
-					href="http://swarmcreativity.blogspot.ch/2014/02/wikihistory-finding-worlds-leaders.html">here</a>
-			</p>
-			<p>
-				Get the code <a href="https://github.com/kubera/wikihistorybook">here</a>
-			</p>
+			<div class="row">
+				<div class="col-md-4">
+					<h:graphicImage name="images/intro-graph-1519.png"
+						title="screenshot of a sub graph visualizing the year 1519 B.C." />
+				</div>
+				<div class="col-md-8">
+					<p>
+						Students from the <a href="http://www.fhnw.ch/">University of
+							Applied Sciences Northwestern Switzerland</a> developed a prototype
+						to visualize the idea of pointing out important people from the <a
+							href="http://en.wikipedia.org/wiki/Main_Page">English
+							Wikipedia</a> by <a href="http://cci.mit.edu/pgloor/">Dr. Peter
+							A. Gloor</a> from the <a href="http://www.mit.edu/">Massachusetts
+							Institute of Technology, MIT</a> Center for Collective Intelligence.
+					</p>
+					<p>
+						Find out more about the idea of the Wikihistorybook at the <a
+							href="http://swarmcreativity.blogspot.ch/2014/02/wikihistory-finding-worlds-leaders.html">swarmcreativity
+							blogspot</a>.
+					</p>
+					<p>
+						Get the code at <a href="https://github.com/kubera/wikihistorybook">GitHub</a>.
+					</p>
+				</div>
+			</div>
+
+
 
 		</ui:define>
 
 		<ui:define name="sidebar-module">
 			<h4>This webpage is build on</h4>
-			<p>Component-based user interfaces with <a href="https://javaserverfaces.java.net/">JSF-2</a></p>
-			<p>Build and Dependency Management with <a href="http://maven.apache.org/">Maven</a></p>
-			<p>Servlet Webserver with <a href="http://tomcat.apache.org/">Tomcat 7</a></p>
-			<p>Application Framework with <a href="http://spring.io/">Spring</a></p>
+			<p>
+				Component-based user interfaces with <a
+					href="https://javaserverfaces.java.net/">JSF-2</a>
+			</p>
+			<p>
+				Build and Dependency Management with <a
+					href="http://maven.apache.org/">Maven</a>
+			</p>
+			<p>
+				Servlet Webserver with <a href="http://tomcat.apache.org/">Tomcat
+					7</a>
+			</p>
+			<p>
+				Application Framework with <a href="http://spring.io/">Spring</a>
+			</p>
 		</ui:define>
 
 	</ui:composition>

@@ -33,13 +33,13 @@
 
 	<properties>
 		<wikihistorybook.graph.name>wikihistorybook-graph</wikihistorybook.graph.name>
-		<wikihistorybook.graph.version>0.2.0</wikihistorybook.graph.version>
+		<wikihistorybook.graph.version>0.3.0</wikihistorybook.graph.version>
 		<wikihistorybook.applet.name>wikihistorybook-applet</wikihistorybook.applet.name>
 		<wikihistorybook.applet.version>0.4.0</wikihistorybook.applet.version>
 		<wikihistorybook.svg.name>wikihistorybook-svg</wikihistorybook.svg.name>
-		<wikihistorybook.svg.version>0.3.0</wikihistorybook.svg.version>
+		<wikihistorybook.svg.version>0.4.0</wikihistorybook.svg.version>
 		<wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
-		<wikihistorybook.webapp.version>0.6.0</wikihistorybook.webapp.version>
+		<wikihistorybook.webapp.version>0.7.0</wikihistorybook.webapp.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>

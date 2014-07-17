@@ -52,8 +52,10 @@ public class SvgSaxLinkHandler extends SvgSaxAbstractHandler {
 		}
 		if ("svg".equals(qName)) {
 			try {
-				out.writeAttribute("xmlns", "http://www.w3.org/2000/svg", "xlink",
-						"http://www.w3.org/1999/xlink");
+				out.writeAttribute("xmlns", "http://www.w3.org/2000/svg",
+						"xlink", "http://www.w3.org/1999/xlink");
+				out.writeStartElement("g");
+				out.writeAttribute("id", "root");
 			} catch (XMLStreamException e) {
 				LOGGER.error(e.getMessage(), e);
 			}
@@ -68,6 +70,9 @@ public class SvgSaxLinkHandler extends SvgSaxAbstractHandler {
 			if ("g".equals(qName) && enteredATag) {
 				out.writeEndElement();
 				enteredATag = false;
+			}
+			if ("svg".equals(qName)) {
+				out.writeEndElement();
 			}
 		} catch (XMLStreamException e) {
 			LOGGER.error(e.getMessage(), e);
