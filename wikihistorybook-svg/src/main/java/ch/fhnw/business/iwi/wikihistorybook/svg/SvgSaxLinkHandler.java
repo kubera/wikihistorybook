@@ -31,6 +31,7 @@ public class SvgSaxLinkHandler extends SvgSaxAbstractHandler {
 				out.writeAttribute("xlink", "http://www.w3.org/1999/xlink",
 						"href", "http://en.wikipedia.org/wiki/"
 								+ rememberedNodes.get(id.trim()));
+				out.writeAttribute("target", "_blank");
 				enteredATag = true;
 			} catch (XMLStreamException e) {
 				LOGGER.error(e.getMessage(), e);
