@@ -19,20 +19,27 @@
 			</div>
 
 			<br></br>
+			<br></br>
+			<label for="spinner">Max. Nodes:</label>
+			<input id="spinner" value="#{svgController.maxNodes}"></input>
+			<!-- <button type="button" class="btn btn-default" onclick="reloadImage('/#{properties['webapp.url.base']}')">Change Nodes</button> -->
+			<div class="pull-right">
+				<button type="button" class="btn btn-default" onclick="resetImage()">Reset
+					Zoom</button>
+			</div>
 
 			<div id="imageWrap">
 				<h:outputText value="#{svgController.svgStream}" escape="false" />
 			</div>
 
-			<h:outputStylesheet name="css/jquery-ui-1.11.0.custom.css" />
-			<h:outputScript name="js/jquery-ui-1.11.0.custom.min.js"
-				target="head" />
+			<h:outputStylesheet name="css/jquery-ui-1.11.0.css" />
+			<h:outputScript name="js/jquery-ui-1.11.0.min.js" target="head" />
 			<h:outputScript name="js/jquery.blockUI.js" target="head" />
 			<h:outputScript name="js/jquery-svgpan.min.js" target="head" />
 			<h:outputScript name="js/wikihistorybook.js" target="head" />
 
 			<script type="text/javascript">
-				$(setupSlider('/#{properties['webapp.url.base']}'));
+				$(setup('/#{properties['webapp.url.base']}', #{svgController.year}));
 			</script>
 
 		</ui:define>
@@ -64,7 +71,10 @@
 			<h4>Precondition</h4>
 			<p>All current browser should support SVG</p>
 			<h4>Improvement</h4>
-			<p>Server-side preprocessing of all <a href="http://www.w3.org/Graphics/SVG/">SVG</a> </p>
+			<p>
+				Server-side preprocessing of all <a
+					href="http://www.w3.org/Graphics/SVG/">SVG</a>
+			</p>
 
 		</ui:define>
 

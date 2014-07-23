@@ -5,13 +5,14 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -19,49 +20,46 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.svg.SvgWikiHistoryBook;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
-@Component
-@Scope("session")
+@ManagedBean(name="svgGraphCreator")
+@ApplicationScoped
 public class SvgGraphCreator implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Autowired
+    private final static Logger LOGGER = Logger.getLogger(SvgGraphCreator.class);
+
+    @ManagedProperty(value = "#{persistence}")
     private Persistence persistence;
 
-    private transient Map<String, ByteArrayOutputStream> images;
+     private transient Map<String, ByteArrayOutputStream> images;
 
-    public String createSvgStreamAndStoreToSession(int year) {
-        String imageName = createImageName(year);
+    public String createSvgStreamAndStoreToSession(int year, int maxNodes) {
+        String imageName = imageName(year, maxNodes);
         ByteArrayOutputStream svgStream = getImages().get(imageName);
         if (svgStream == null) {
-            svgStream = createSvgGraph(year);
+            svgStream = createSvgGraph(year, maxNodes);
             getImages().put(imageName, svgStream);
+            LOGGER.debug("svg stream created for year: " + year + " with max nodes: " + maxNodes);
         }
         return imageName;
+    }
+
+    public ByteArrayOutputStream getSvgStream(int year, int maxNodes) {
+        String imageName = createSvgStreamAndStoreToSession(year, maxNodes);
+        return getSvgStream(imageName);
     }
 
     public ByteArrayOutputStream getSvgStream(String imageName) {
         return getImages().get(imageName);
     }
 
-    public ByteArrayOutputStream createSvgGraph(int year) {
-        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, getDBProvider());
+    public ByteArrayOutputStream createSvgGraph(int year, int maxNodes) {
+        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, maxNodes, persistence.getDBProvider());
         return svgWikiHistoryBook.getSvgStream();
     }
 
-    private String createImageName(int year) {
-        return String.format("gen-img_%d.svg", year);
-    }
-
-    private DBProvider getDBProvider() {
-        if (persistence == null) {
-            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-                    .getContext();
-            WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-            AutowireCapableBeanFactory ctx = context.getAutowireCapableBeanFactory();
-            ctx.autowireBean(this);
-        }
-        return persistence.getDBProvider();
+    public String imageName(int year, int maxNodes) {
+        return String.format("gen-img_%d_%d.svg", year, maxNodes);
     }
 
     private Map<String, ByteArrayOutputStream> getImages() {
@@ -70,4 +68,9 @@ public class SvgGraphCreator implements Serializable {
         }
         return images;
     }
+    
+    public void setPersistence(Persistence persistence) {
+        this.persistence = persistence;
+    }
+
 }

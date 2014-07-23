@@ -2,13 +2,13 @@ package ch.fhnw.business.iwi.wikihistorybook.webapp.controllers;
 
 import java.io.Serializable;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import ch.fhnw.business.iwi.wikihistorybook.applet.WikiBookContainer;
 
-@Component
-@Scope("session")
+@ManagedBean
+@SessionScoped
 public class AppletController implements Serializable {
 
     private static final long serialVersionUID = 1L;

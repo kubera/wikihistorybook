@@ -9,24 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.SvgController;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
 
 public class SvgServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private SvgGraphCreator svgGraphCreator;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String imageName = request.getPathInfo().substring(1);
-        ByteArrayOutputStream imageStream = svgGraphCreator.getSvgStream(imageName);
+        ByteArrayOutputStream imageStream = getSvgGraphCreator().getSvgStream(imageName);
         setImageStream2Response(imageStream, response);
     }
 
@@ -34,16 +28,10 @@ public class SvgServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         int year = Integer.valueOf(request.getParameter("year"));
-        String imageName = svgGraphCreator.createSvgStreamAndStoreToSession(year);
+        int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
+        setValues2Session(year, maxNodes, request);
+        String imageName = getSvgGraphCreator().createSvgStreamAndStoreToSession(year, maxNodes);
         setImageName2Response(imageName, response);
-    }
-
-    @Override
-    public void init() throws ServletException {
-        // we need to do the injection manually 
-        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        AutowireCapableBeanFactory ctx = context.getAutowireCapableBeanFactory();
-        ctx.autowireBean(this);
     }
 
     private void setImageStream2Response(ByteArrayOutputStream imageContent, HttpServletResponse response)
@@ -60,6 +48,17 @@ public class SvgServlet extends HttpServlet {
         byte[] nameInBytes = svgName.getBytes("UTF-8");
         response.setContentLength(nameInBytes.length);
         IOUtils.write(nameInBytes, response.getOutputStream());
+    }
+
+    private void setValues2Session(int year, int maxNodes, HttpServletRequest request) {
+        SvgController controller = (SvgController) request.getSession().getAttribute("svgController");
+        controller.setYear(year);
+        controller.setMaxNodes(maxNodes);
+    }
+
+    private SvgGraphCreator getSvgGraphCreator() {
+        Object bean = getServletContext().getAttribute("svgGraphCreator");
+        return (SvgGraphCreator) bean;
     }
 
 }

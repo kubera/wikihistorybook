@@ -1,54 +1,80 @@
-function setupSlider(url) {
+function setup(url, sliderValue) {
+	$("#spinner").spinner();
 	$("#slider").slider({
 		min : -2000,
 		max : 2000,
-		value : 0,
-		change : changeAction(url),
+		value : sliderValue,
+		change : changeActionSlider(url),
 		slide : slideAction,
-		create: svgPan()
+		create : svgPan()
 	});
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
 	$('#middle').text(0);
-};
+}
+
+function resetImage() {
+	alert("not yet implemented");
+}
 
 function svgPan() {
 	$('svg').svgPan('root', true, true, false, 3);
-};
+}
 
-function changeAction(url) {
+function changeActionSlider(url) {
 	var genImgUrl = url + '/gensvg/';
-	return function(event, ui) {
+	return function() {
 		$('#imageWrap').hide();
-		$.blockUI();
+		$.blockUI({ message:  blockUiMessage});
 		$.ajax({
 			type : "POST",
 			url : genImgUrl,
 			data : {
-				year : ui.value
+				year : $("#slider").slider('value'),
+				maxNodes : $("#spinner").spinner('value')
 			},
-			success : function(imageName) {
-				$('#imageWrap').empty();
-				$('#imageWrap').load(genImgUrl + imageName,
-						function(response, status, xhr) {
-							if (status == "error") {
-								alert("could not reload svg");
-							}
-							if (status == "success") {
-								$('#imageWrap').fadeIn();
-							}
-							$.unblockUI();
-							svgPan();
-						});
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				$.unblockUI();
-				alert("error status " + textStatus);
-			},
+			success : changeActionSliderSuccess(genImgUrl),
+			error : changeActionSliderError,
 			dataType : "text"
 		});
 	};
 }
+
+function blockUiMessage() {
+	return function() {
+		var msg = '<h4>Create graph for year ';
+		msg += $("#slider").slider('value');
+		msg += ' with max. nodes ';
+		msg += $("#spinner").spinner('value');
+		msg += '</h4>';
+		return msg;
+	};
+}
+
+function changeActionSliderSuccess(genImgUrl) {
+	return function(imageName) {
+		$('#imageWrap').empty();
+		$('#imageWrap').load(genImgUrl + imageName,
+				function(response, status, xhr) {
+					if (status == "error") {
+						alert("could not reload svg");
+					}
+					if (status == "success") {
+						$('#imageWrap').fadeIn();
+					}
+					$.unblockUI();
+					svgPan();
+				});
+	};
+}
+
+function changeActionSliderError() {
+	return function(jqXHR, textStatus, errorThrown) {
+		$.unblockUI();
+		alert("error status " + textStatus);
+	};
+}
+
 function slideAction(event, ui) {
 	var v = 50;
 	if (ui.value > 0) {

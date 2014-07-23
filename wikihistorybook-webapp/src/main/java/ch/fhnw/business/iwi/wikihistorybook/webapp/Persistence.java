@@ -2,17 +2,17 @@ package ch.fhnw.business.iwi.wikihistorybook.webapp;
 
 import java.io.Serializable;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 
-@Component
-@Scope("singleton")
+@ManagedBean
+@ApplicationScoped
 public class Persistence implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private transient DBProvider dbProvider;
 
     public DBProvider getDBProvider() {

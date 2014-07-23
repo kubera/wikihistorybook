@@ -56,6 +56,7 @@ Find the results in the maven target directories. e.g.
 
 ### Advanced
 * [Java Applets Communicating with JavaScript ][5]
+* [Find managed beans in JSF2][11]
 
 ### Security issues
 * [Why are Java applications blocked by your security settings with the latest Java?][1]
@@ -86,3 +87,4 @@ Find the results in the maven target directories. e.g.
 [8]: http://docs.codehaus.org/display/FEST/Testing+Applets
 [9]: https://code.google.com/p/canviz/
 [10]: http://www.sitepoint.com/html5-canvas-tutorial-introduction/
+[11]: http://stackoverflow.com/questions/15053996/how-to-get-jsf2-0-sessionmap-reference-from-a-servlet

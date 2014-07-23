@@ -16,11 +16,14 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
 public class SvgWikiHistoryBook implements IWikiBookContainer {
 
-    private final static Logger LOGGER = Logger.getLogger(SvgWikiHistoryBook.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(SvgWikiHistoryBook.class);
 
     private final ByteArrayOutputStream svgStream = new ByteArrayOutputStream();
 
-    public SvgWikiHistoryBook(int year, DBProvider dbProvider) {
+    private int maxNodes; 
+    
+    public SvgWikiHistoryBook(int year, int maxNodes, DBProvider dbProvider) {
+    	this.maxNodes = maxNodes;
         GraphFactory graphFactory = null;
         try {
             graphFactory = new GraphFactory(year, dbProvider);
@@ -34,7 +37,7 @@ public class SvgWikiHistoryBook implements IWikiBookContainer {
 
     @Override
     public int getMaxNodes() {
-        return 1000;
+        return maxNodes;
     }
 
     @Override

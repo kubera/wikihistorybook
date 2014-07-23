@@ -7,21 +7,15 @@ import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-import javax.servlet.ServletContext;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 
 public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
     private final static Logger LOGGER = Logger.getLogger(WikiHistoryBookSystemEventListener.class.getName());
-    
-    @Autowired
+
     private Persistence persistence;
 
     @Override
@@ -46,11 +40,8 @@ public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
     private DBProvider getDBProvider() {
         if (persistence == null) {
-            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
-                    .getContext();
-            WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-            AutowireCapableBeanFactory ctx = context.getAutowireCapableBeanFactory();
-            ctx.autowireBean(this);
+            persistence = (Persistence) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
+                    .get("persistence");
         }
         return persistence.getDBProvider();
     }
