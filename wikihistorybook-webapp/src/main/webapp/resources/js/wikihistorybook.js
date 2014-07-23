@@ -6,7 +6,7 @@ function setup(url, sliderValue) {
 		value : sliderValue,
 		change : changeActionSlider(url),
 		slide : slideAction,
-		create : svgPan()
+		create : svgPan
 	});
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
@@ -14,11 +14,12 @@ function setup(url, sliderValue) {
 }
 
 function resetImage() {
-	alert("not yet implemented");
+	$slider = $('#slider');
+	$slider.slider('option', 'change').call($slider);
 }
 
 function svgPan() {
-	$('svg').svgPan('root', true, true, false, 3);
+	$('svg').svgPan('root', true, true, false, 0.5);
 }
 
 function changeActionSlider(url) {

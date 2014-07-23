@@ -11,10 +11,9 @@ Contains the main java implementation of the [student version][fluehmann] withou
 
 ### wikihistorybook-webapp
 
-The web server component, a java servlet container implemented with [JSF-2][jsf] and [Spring][spring].
+The web server component, a java servlet container implemented with [JSF-2][jsf].
 
 [jsf]: https://javaserverfaces.java.net/
-[spring]: http://spring.io/
 
 ### wikihistorybook-applet
 
@@ -47,12 +46,10 @@ Find the results in the maven target directories. e.g.
 ### Basics
 * [Maven build and dependency management][maven]
 * [Component-based user interfaces with JSF-2][jsf]
-* [Spring application framework][spring]
 * [A simple Swing-based applet][3]
 
 [maven]: http://maven.apache.org/
 [jsf]: https://javaserverfaces.java.net/
-[spring]: http://spring.io/
 
 ### Advanced
 * [Java Applets Communicating with JavaScript ][5]
