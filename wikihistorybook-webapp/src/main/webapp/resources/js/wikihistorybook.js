@@ -6,7 +6,7 @@ function setup(url, sliderValue) {
 		value : sliderValue,
 		change : changeActionSlider(url),
 		slide : slideAction,
-		create : svgPan
+		create : sliderCreated
 	});
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
@@ -18,6 +18,13 @@ function resetImage() {
 	$slider.slider('option', 'change').call($slider);
 }
 
+function sliderCreated() {
+	svgPan();
+	var year = $("#slider").slider('value');
+	var p = positionSliderPercentage(year);
+	setSliderUiValue(year, p);
+}
+
 function svgPan() {
 	$('svg').svgPan('root', true, true, false, 0.5);
 }
@@ -26,7 +33,9 @@ function changeActionSlider(url) {
 	var genImgUrl = url + '/gensvg/';
 	return function() {
 		$('#imageWrap').hide();
-		$.blockUI({ message:  blockUiMessage});
+		$.blockUI({
+			message : blockUiMessage
+		});
 		$.ajax({
 			type : "POST",
 			url : genImgUrl,
@@ -77,12 +86,21 @@ function changeActionSliderError() {
 }
 
 function slideAction(event, ui) {
+	var p = positionSliderPercentage(ui.value);
+	setSliderUiValue(ui.value, p);
+}
+
+function setSliderUiValue(year, percentage) {
+	$('#value').text(year).css('left', (percentage - 0.5) + '%');
+}
+
+function positionSliderPercentage(year) {
 	var v = 50;
-	if (ui.value > 0) {
-		v = (ui.value / 40) + v;
+	if (year > 0) {
+		v = (year / 40) + v;
 	}
-	if (ui.value < 0) {
-		v = v - (Math.abs(ui.value) / 40);
+	if (year < 0) {
+		v = v - (Math.abs(year) / 40);
 	}
-	$('#value').text(ui.value).css('left', (v - 0.5) + '%');
+	return v;
 }
