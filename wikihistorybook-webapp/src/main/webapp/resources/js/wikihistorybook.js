@@ -1,12 +1,12 @@
 function setup(url, sliderValue, zoomEnabled) {
 	$("#spinner").spinner({
-		spin : maxNodesSpinnerSpinAction,
+		stop : maxNodesSpinnerSpinAction,
 		change : maxNodesSpinnerSpinAction
 	});
 	$("#zoomScaleSpinner").spinner({
 		step : 0.1,
 		numberFormat : "n",
-		spin : zoomScaleSpinnerSpinAction,
+		stop : zoomScaleSpinnerSpinAction,
 		change : zoomScaleSpinnerSpinAction
 	});
 	$("#slider").slider({
@@ -29,6 +29,7 @@ function setup(url, sliderValue, zoomEnabled) {
 }
 
 function maxNodesSpinnerSpinAction(event, ui) {
+	console.log(event.type);
 	var maxNodes = ui.value;
 	if (!$.isNumeric(maxNodes)) {
 		maxNodes = $("#spinner").spinner('value');
