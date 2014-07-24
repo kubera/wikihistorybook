@@ -20,12 +20,20 @@
 
 			<br></br>
 			<br></br>
-			<label for="spinner">Max. Nodes:</label>
-			<input id="spinner" value="#{svgController.maxNodes}"></input>
-			<!-- <button type="button" class="btn btn-default" onclick="reloadImage('/#{properties['webapp.url.base']}')">Change Nodes</button> -->
-			<div class="pull-right">
-				<button type="button" class="btn btn-default" onclick="resetImage()">Reset
-					Zoom</button>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<label for="spinner">Max. Nodes:</label> <input id="spinner"
+						class="spinner" value="#{svgController.maxNodes}"></input>
+
+					<div class="pull-right">
+						<button type="button" class="btn btn-success" id="enableZoomBtn"></button>
+						<label for="zoomScaleSpinner">with scale</label> <input
+							class="spinner" id="zoomScaleSpinner"
+							value="#{svgController.zoomScale}"></input>
+						<button type="button" class="btn btn-info" id="resetZoomBtn"
+							onclick="resetImage()">Reset Zoom</button>
+					</div>
+				</div>
 			</div>
 
 			<div id="imageWrap">
@@ -39,7 +47,7 @@
 			<h:outputScript name="js/wikihistorybook.js" target="head" />
 
 			<script type="text/javascript">
-				$(setup('/#{properties['webapp.url.base']}', #{svgController.year}));
+				$(setup('/#{properties['webapp.url.base']}', #{svgController.year}, #{svgController.zoomEnabled}));
 			</script>
 
 		</ui:define>

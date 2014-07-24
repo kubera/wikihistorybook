@@ -1,5 +1,14 @@
-function setup(url, sliderValue) {
-	$("#spinner").spinner();
+function setup(url, sliderValue, zoomEnabled) {
+	$("#spinner").spinner({
+		spin : maxNodesSpinnerSpinAction,
+		change : maxNodesSpinnerSpinAction
+	});
+	$("#zoomScaleSpinner").spinner({
+		step : 0.1,
+		numberFormat : "n",
+		spin : zoomScaleSpinnerSpinAction,
+		change : zoomScaleSpinnerSpinAction
+	});
 	$("#slider").slider({
 		min : -2000,
 		max : 2000,
@@ -11,6 +20,46 @@ function setup(url, sliderValue) {
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
 	$('#middle').text(0);
+	
+	if (zoomEnabled) {
+		enableZoom();
+	} else {
+		disableUiZoom();
+	}
+}
+
+function maxNodesSpinnerSpinAction(event, ui) {
+	var maxNodes = ui.value;
+	if (!$.isNumeric(maxNodes)) {
+		maxNodes = $("#spinner").spinner('value');
+	}
+	var url = $(location).attr('href') + 'maxNodes';
+	var data = {
+		maxNodes : maxNodes
+	};
+	var response = function(data, textStatus, jqXHR) {
+		if (window.console) {
+			console.log('send value to server: ' + maxNodes);
+		}
+	};
+	$.post(url, data, response, "text");
+}
+
+function zoomScaleSpinnerSpinAction(event, ui) {
+	var zoomScale = ui.value;
+	if (!$.isNumeric(zoomScale)) {
+		zoomScale = $("#zoomScaleSpinner").spinner('value');
+	}
+	var url = $(location).attr('href') + 'zoomScale';
+	var data = {
+		zoomScale : zoomScale
+	};
+	var response = function(data, textStatus, jqXHR) {
+		if (window.console) {
+			console.log('send value to server: ' + zoomScale);
+		}
+	};
+	$.post(url, data, response, "text");
 }
 
 function resetImage() {
@@ -19,14 +68,15 @@ function resetImage() {
 }
 
 function sliderCreated() {
-	svgPan();
+	// set the current slider value to the ui
 	var year = $("#slider").slider('value');
 	var p = positionSliderPercentage(year);
 	setSliderUiValue(year, p);
 }
 
 function svgPan() {
-	$('svg').svgPan('root', true, true, false, 0.5);
+	var zoomscale = $("#zoomScaleSpinner").spinner('value');
+	$('svg').svgPan('root', true, true, false, zoomscale);
 }
 
 function changeActionSlider(url) {
@@ -73,7 +123,9 @@ function changeActionSliderSuccess(genImgUrl) {
 						$('#imageWrap').fadeIn();
 					}
 					$.unblockUI();
-					svgPan();
+					if ($("#enableZoomBtn").hasClass('btn-warning')) {
+						svgPan();
+					}
 				});
 	};
 }
@@ -103,4 +155,39 @@ function positionSliderPercentage(year) {
 		v = v - (Math.abs(year) / 40);
 	}
 	return v;
+}
+
+function enableZoom() {
+	svgPan();
+	$("#enableZoomBtn").removeClass( "btn-success" ).addClass( "btn-warning" );
+	$("#enableZoomBtn").html("Disable zoom");
+	$("#enableZoomBtn").attr('onclick', 'postZoomEnabled(false)');
+	$("#zoomScaleSpinner").spinner("option", "disabled", true);
+	$("#resetZoomBtn").removeAttr('disabled');
+	postZoomEnabled(true);
+}
+
+function disableUiZoom() {
+	$("#enableZoomBtn").removeClass( "btn-warning" ).addClass( "btn-success" );
+	$("#enableZoomBtn").html("Enable zoom");
+	$("#enableZoomBtn").attr('onclick', 'enableZoom()');
+	$("#zoomScaleSpinner").spinner("option", "disabled", false);
+	$("#resetZoomBtn").attr('disabled', 'disabled');
+}
+
+function postZoomEnabled(zoomEnabled) {
+	var url = $(location).attr('href') + 'zoomEnabled';
+	var data = {
+			zoomEnabled : zoomEnabled
+	};
+	var response = function(data, textStatus, jqXHR) {
+		if (window.console) {
+			console.log('send value to server: ' + zoomEnabled);
+		}
+		if (!zoomEnabled) {
+			location.reload();
+		}
+	};
+	$.post(url, data, response, "text");
+
 }

@@ -1,6 +1,7 @@
 package ch.fhnw.business.iwi.wikihistorybook.webapp;
 
-import javax.servlet.ServletContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -17,20 +18,30 @@ public class SessionCounterListener implements HttpSessionListener {
     }
 
     @Override
-    public void sessionCreated(HttpSessionEvent arg0) {
+    public void sessionCreated(HttpSessionEvent sessionEvent) {
         totalActiveSessions++;
     }
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent arg0) {
+    public void sessionDestroyed(HttpSessionEvent sessionEvent) {
         totalActiveSessions--;
         if (!hasActiveSessions()) {
-            getPersistence(arg0.getSession().getServletContext()).disconnect();
+            Persistence persistence = getPersistence(sessionEvent.getSession());
+            if (persistence != null) {
+                persistence.disconnect();
+            }
         }
     }
 
-    private Persistence getPersistence(ServletContext servletContext) {
-        return (Persistence) servletContext.getAttribute("persistence");
+    private Persistence getPersistence(HttpSession httpSession) {
+        Persistence persistence = (Persistence) httpSession.getServletContext().getAttribute("persistence");
+        if (persistence != null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (context != null && context.getExternalContext() != null) {
+                persistence = (Persistence) context.getExternalContext().getApplicationMap().get("persistence");
+            }
+        }
+        return persistence;
     }
 
 }
