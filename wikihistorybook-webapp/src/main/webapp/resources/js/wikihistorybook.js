@@ -1,3 +1,5 @@
+var svgSlider = new SvgSlider();
+
 function setup(url, sliderValue, zoomEnabled) {
 	$("#spinner").spinner({
 		stop : maxNodesSpinnerSpinAction,
@@ -10,8 +12,8 @@ function setup(url, sliderValue, zoomEnabled) {
 		change : zoomScaleSpinnerSpinAction
 	});
 	$("#slider").slider({
-		min : -2000,
-		max : 2000,
+		min : svgSlider.min,
+		max : svgSlider.max,
 		value : sliderValue,
 		change : changeActionSlider(url),
 		slide : slideAction,
@@ -71,7 +73,7 @@ function resetImage() {
 function sliderCreated() {
 	// set the current slider value to the ui
 	var year = $("#slider").slider('value');
-	var p = positionSliderPercentage(year);
+	var p = svgSlider.positionSliderPercentage(year);
 	setSliderUiValue(year, p);
 }
 
@@ -139,23 +141,12 @@ function changeActionSliderError() {
 }
 
 function slideAction(event, ui) {
-	var p = positionSliderPercentage(ui.value);
+	var p = svgSlider.positionSliderPercentage(ui.value);
 	setSliderUiValue(ui.value, p);
 }
 
 function setSliderUiValue(year, percentage) {
 	$('#value').text(year).css('left', (percentage - 0.5) + '%');
-}
-
-function positionSliderPercentage(year) {
-	var v = 50;
-	if (year > 0) {
-		v = (year / 40) + v;
-	}
-	if (year < 0) {
-		v = v - (Math.abs(year) / 40);
-	}
-	return v;
 }
 
 function enableZoom() {
