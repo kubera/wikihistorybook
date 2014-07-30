@@ -13,16 +13,16 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-public class SvgWriterHandler extends SvgHandler {
+public class SvgWriteHandler extends SvgHandler {
 
-    private final static Logger LOGGER = Logger.getLogger(SvgWriterHandler.class);
+    private final static Logger LOGGER = Logger.getLogger(SvgWriteHandler.class);
 
     private ByteArrayOutputStream outputStream;
     private XMLStreamWriter out;
     private boolean enteredATag = false;
     private int writeTitles = 1;
 
-    public SvgWriterHandler(ByteArrayOutputStream outputStream) {
+    public SvgWriteHandler(ByteArrayOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
