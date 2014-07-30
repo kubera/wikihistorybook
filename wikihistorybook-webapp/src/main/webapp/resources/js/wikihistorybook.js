@@ -22,7 +22,7 @@ function setup(url, sliderValue, zoomEnabled) {
 	$('#min').text($('#slider').slider('option', 'min'));
 	$('#max').text($('#slider').slider('option', 'max'));
 	$('#middle').text(0);
-	
+
 	if (zoomEnabled) {
 		enableZoom();
 	} else {
@@ -31,7 +31,6 @@ function setup(url, sliderValue, zoomEnabled) {
 }
 
 function maxNodesSpinnerSpinAction(event, ui) {
-	console.log(event.type);
 	var maxNodes = ui.value;
 	if (!$.isNumeric(maxNodes)) {
 		maxNodes = $("#spinner").spinner('value');
@@ -66,8 +65,15 @@ function zoomScaleSpinnerSpinAction(event, ui) {
 }
 
 function resetImage() {
-	$slider = $('#slider');
-	$slider.slider('option', 'change').call($slider);
+	panZoomSvg.resetZoom();
+}
+
+function zoomIn() {
+	panZoomSvg.zoomIn();
+}
+
+function zoomOut() {
+	panZoomSvg.zoomOut();
 }
 
 function sliderCreated() {
@@ -78,8 +84,18 @@ function sliderCreated() {
 }
 
 function svgPan() {
+	var width = $("#imageWrap").width();
+	$("#imageWrap").css('min-height', width);
+
 	var zoomscale = $("#zoomScaleSpinner").spinner('value');
-	$('svg').svgPan('root', true, true, false, zoomscale);
+	
+	panZoomSvg = svgPanZoom('#Wiki', {
+		zoomEnabled : true,
+		controlIconsEnabled : false,
+		fit : 0,
+		center : 0,
+		zoomScaleSensitivity : zoomscale
+	});
 }
 
 function changeActionSlider(url) {
@@ -151,26 +167,30 @@ function setSliderUiValue(year, percentage) {
 
 function enableZoom() {
 	svgPan();
-	$("#enableZoomBtn").removeClass( "btn-success" ).addClass( "btn-warning" );
+	$("#enableZoomBtn").removeClass("btn-success").addClass("btn-warning");
 	$("#enableZoomBtn").html("Disable zoom");
 	$("#enableZoomBtn").attr('onclick', 'postZoomEnabled(false)');
 	$("#zoomScaleSpinner").spinner("option", "disabled", true);
+	$("#zoomInBtn").removeAttr('disabled');
+	$("#zoomOutBtn").removeAttr('disabled');
 	$("#resetZoomBtn").removeAttr('disabled');
 	postZoomEnabled(true);
 }
 
 function disableUiZoom() {
-	$("#enableZoomBtn").removeClass( "btn-warning" ).addClass( "btn-success" );
+	$("#enableZoomBtn").removeClass("btn-warning").addClass("btn-success");
 	$("#enableZoomBtn").html("Enable zoom");
 	$("#enableZoomBtn").attr('onclick', 'enableZoom()');
 	$("#zoomScaleSpinner").spinner("option", "disabled", false);
+	$("#zoomInBtn").attr('disabled', 'disabled');
+	$("#zoomOutBtn").attr('disabled', 'disabled');
 	$("#resetZoomBtn").attr('disabled', 'disabled');
 }
 
 function postZoomEnabled(zoomEnabled) {
 	var url = $(location).attr('href') + 'zoomEnabled';
 	var data = {
-			zoomEnabled : zoomEnabled
+		zoomEnabled : zoomEnabled
 	};
 	var response = function(data, textStatus, jqXHR) {
 		if (window.console) {

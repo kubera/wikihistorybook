@@ -30,20 +30,24 @@
 						<label for="zoomScaleSpinner">with scale</label> <input
 							class="spinner" id="zoomScaleSpinner"
 							value="#{svgController.zoomScale}"></input>
-						<button type="button" class="btn btn-info" id="resetZoomBtn"
-							onclick="resetImage()">Reset Zoom</button>
+							<div class="btn-group">
+  <button type="button" class="btn btn-info" id="zoomInBtn" onclick="zoomIn()"><span class="glyphicon glyphicon-plus"></span></button>
+  <button type="button" class="btn btn-info" id="zoomOutBtn" onclick="zoomOut()"><span class="glyphicon glyphicon-minus"></span></button>
+  <button type="button" class="btn btn-info" id="resetZoomBtn" onclick="resetImage()">Reset</button>
+</div>
+						
 					</div>
 				</div>
 			</div>
 
-			<div id="imageWrap">
+			<div id="imageWrap" class="container container-svg">
 				<h:outputText value="#{svgController.svgStream}" escape="false" />
 			</div>
 
 			<h:outputStylesheet name="css/jquery-ui-1.11.0.css" />
 			<h:outputScript name="js/jquery-ui-1.11.0.min.js" target="head" />
 			<h:outputScript name="js/jquery.blockUI.js" target="head" />
-			<h:outputScript name="js/jquery-svgpan.min.js" target="head" />
+			<h:outputScript name="js/svg-pan-zoom.js" target="head" />
             <h:outputScript name="js/SvgSlider.js" target="head" />
             <h:outputScript name="js/wikihistorybook.js" target="head" />
 

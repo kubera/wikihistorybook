@@ -28,7 +28,7 @@ public abstract class SvgSaxAbstractHandler extends DefaultHandler {
     public void startDocument() throws SAXException {
         try {
             out = XMLOutputFactory.newInstance().createXMLStreamWriter(new OutputStreamWriter(outputStream, "utf-8"));
-            out.writeStartDocument("UTF-8", "1.0");
+//            out.writeStartDocument("UTF-8", "1.0");
         } catch (UnsupportedEncodingException e) {
             getLogger().error(e.getMessage(), e);
         } catch (XMLStreamException e) {
