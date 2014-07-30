@@ -53,7 +53,7 @@ public class SvgWriteHandler extends SvgHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         String id = getId(attributes);
         try {
-            if (!isTagContainingTitleOfNode(qName)) {// && writeTitles > 0) {
+            if (!isTagContainingTitleOfNode(qName)) {
                 out.writeStartElement(qName);
                 for (int i = 0; i < attributes.getLength(); i++) {
                     String value = attributes.getValue(i);
@@ -89,9 +89,9 @@ public class SvgWriteHandler extends SvgHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            if (!((isGSvgTag(qName) || isTextSvgTag(qName)) && isInsideNode())) {
+            if (!isTagContainingTitleOfNode(qName)) {
                 out.writeEndElement();
-                if ("g".equals(qName) && enteredATag) {
+                if (isGSvgTag(qName) && enteredATag) {
                     out.writeEndElement();
                     enteredATag = false;
                 }
@@ -101,6 +101,7 @@ public class SvgWriteHandler extends SvgHandler {
             }
             if (isGSvgTag(qName) && isInsideNode()) {
                 currentNode = null;
+                --writeTitles;
             }
 
         } catch (XMLStreamException e) {
