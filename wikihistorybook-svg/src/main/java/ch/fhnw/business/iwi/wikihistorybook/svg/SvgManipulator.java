@@ -24,7 +24,7 @@ public class SvgManipulator {
     public ByteArrayOutputStream manipulate() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SvgAnalyser analyser = new SvgAnalyser();
-        SvgWriterHandler writeHandler = new SvgWriterHandler(0, result);
+        SvgWriterHandler writeHandler = new SvgWriterHandler(result);
         try {
             factory.newSAXParser().parse(new ByteArrayInputStream(source.toByteArray()), analyser);
             writeHandler.setAllNodes(analyser.getAllNodes());

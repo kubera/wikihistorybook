@@ -17,10 +17,12 @@ public class SvgWriterHandler extends SvgHandler {
 
     private final static Logger LOGGER = Logger.getLogger(SvgWriterHandler.class);
 
-    protected ByteArrayOutputStream outputStream;
-    protected XMLStreamWriter out;
+    private ByteArrayOutputStream outputStream;
+    private XMLStreamWriter out;
+    private boolean enteredATag = false;
+    private int writeTitles = 1;
 
-    public SvgWriterHandler(int showNumberOfTitles, ByteArrayOutputStream outputStream) {
+    public SvgWriterHandler(ByteArrayOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
@@ -51,7 +53,7 @@ public class SvgWriterHandler extends SvgHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         String id = getId(attributes);
         try {
-            if (!isTagContainingTitleOfNode(qName)) {
+            if (!isTagContainingTitleOfNode(qName)) {// && writeTitles > 0) {
                 out.writeStartElement(qName);
                 for (int i = 0; i < attributes.getLength(); i++) {
                     String value = attributes.getValue(i);
@@ -65,6 +67,11 @@ public class SvgWriterHandler extends SvgHandler {
                 out.writeAttribute("xlink", "http://www.w3.org/1999/xlink", "href", "http://en.wikipedia.org/wiki/"
                         + currentNode.getTitle());
                 out.writeAttribute("target", "_blank");
+                enteredATag = true;
+
+                out.writeStartElement("title");
+                out.writeCharacters(currentNode.getTitle().replace('_', ' '));
+                out.writeEndElement();
             }
             if (isSvgTag(qName)) {
                 out.writeAttribute("xmlns", "http://www.w3.org/2000/svg", "xlink", "http://www.w3.org/1999/xlink");
@@ -82,31 +89,29 @@ public class SvgWriterHandler extends SvgHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
+            if (!((isGSvgTag(qName) || isTextSvgTag(qName)) && isInsideNode())) {
+                out.writeEndElement();
+                if ("g".equals(qName) && enteredATag) {
+                    out.writeEndElement();
+                    enteredATag = false;
+                }
+            }
             if (isSvgTag(qName)) {
                 out.writeEndElement();
             }
-            if (!isTagContainingTitleOfNode(qName) && !isSvgTag(qName)) {
-                out.writeEndElement();
-                if (isGSvgTag(qName) && isInsideNode()) {
-                    out.writeEndElement();
-                }
+            if (isGSvgTag(qName) && isInsideNode()) {
+                currentNode = null;
             }
+
         } catch (XMLStreamException e) {
             LOGGER.error(e.getMessage(), e);
-        }
-        if (isGSvgTag(qName) && isInsideNode()) {
-            currentNode = null;
         }
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         try {
-            if (length > 0 && isInsideNode()) {
-                out.writeStartElement("title");
-                out.writeCharacters(currentNode.getTitle().replace('_', ' '));
-                out.writeEndElement();
-            } else {
+            if (!(length > 0 && isInsideNode())) {
                 out.writeCharacters(ch, start, length);
             }
         } catch (XMLStreamException e) {
