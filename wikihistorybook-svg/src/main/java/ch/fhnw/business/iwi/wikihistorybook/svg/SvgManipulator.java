@@ -14,8 +14,7 @@ public class SvgManipulator {
 
     private final static Logger LOGGER = Logger.getLogger(SvgManipulator.class);
 
-    private ByteArrayOutputStream resultToolTip = new ByteArrayOutputStream();
-    private ByteArrayOutputStream resultLink = new ByteArrayOutputStream();
+    private ByteArrayOutputStream result = new ByteArrayOutputStream();
     private ByteArrayOutputStream source;
 
     public SvgManipulator(ByteArrayOutputStream source) {
@@ -24,12 +23,12 @@ public class SvgManipulator {
 
     public ByteArrayOutputStream manipulate() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        SvgSaxToolTipHandler toolTipHandler = new SvgSaxToolTipHandler(resultToolTip);
-        SvgSaxLinkHandler linkHandler = new SvgSaxLinkHandler(resultLink);
+        SvgAnalyser analyser = new SvgAnalyser();
+        SvgWriterHandler writeHandler = new SvgWriterHandler(0, result);
         try {
-            factory.newSAXParser().parse(new ByteArrayInputStream(source.toByteArray()), toolTipHandler);
-            linkHandler.setRememberedNodes(toolTipHandler.getRememberNodes());
-            factory.newSAXParser().parse(new ByteArrayInputStream(resultToolTip.toByteArray()), linkHandler);
+            factory.newSAXParser().parse(new ByteArrayInputStream(source.toByteArray()), analyser);
+            writeHandler.setAllNodes(analyser.getAllNodes());
+            factory.newSAXParser().parse(new ByteArrayInputStream(source.toByteArray()), writeHandler);
         } catch (ParserConfigurationException e) {
             LOGGER.error(e.getMessage(), e);
         } catch (SAXException e) {
@@ -37,7 +36,7 @@ public class SvgManipulator {
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return resultLink;
+        return result;
     }
 
 }

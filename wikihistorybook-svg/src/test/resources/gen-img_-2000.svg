@@ -1,25 +1,39 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0.000000 0.000000 1000.000000 1000.000000" id="Wiki" version="1.1">
-  <defs></defs>
-  <g id="graph-misc">
-    <g id="graph-background">
-      <path style="fill:#ffffff;fill-opacity:1.000000;fill-rule:nonzero;" d=" M 0.000000 0.000000 L 1000.000000 0.000000 L 1000.000000 1000.000000 L 0.000000 1000.000000 Z"></path></g></g>
-  <g id="elements">
-    <g id="graph-background">
-      <path style="fill:#ffffff;fill-opacity:1.000000;fill-rule:nonzero;" d=" M 0.000000 0.000000 L 1000.000000 0.000000 L 1000.000000 1000.000000 L 0.000000 1000.000000 Z"></path></g>
-    <g id="node-255603">
-      <path style="fill:#f4000b;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(492.297597,30.000000)" d=" m -9.542483 0 a 9.542483,9.542483 0 1 0 19.084967,0 9.542483,9.542483 0 1 0 -19.084967,0 z"></path>
-      <g>
-        <text x="492.297597" y="30.000000" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Senusret_I</text></g></g>
-    <g id="node-232836">
-      <path style="fill:#ed0012;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(363.892291,970.000000)" d=" m -9.281046 0 a 9.281046,9.281046 0 1 0 18.562092,0 9.281046,9.281046 0 1 0 -18.562092,0 z"></path>
-      <g>
-        <text x="363.892291" y="970.000000" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Mentuhotep_IV</text></g></g>
-    <g id="node-287018">
-      <path style="fill:#000000;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(30.000000,432.864639)" d=" m -5.000000 0 a 5.000000,5.000000 0 1 0 10.000000,0 5.000000,5.000000 0 1 0 -10.000000,0 z"></path>
-      <g>
-        <text x="30.000000" y="432.864639" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Mentuhotep_II</text></g></g>
-    <g id="node-3163">
-      <path style="fill:#90006f;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(970.000000,651.436209)" d=" m -5.620915 0 a 5.620915,5.620915 0 1 0 11.241830,0 5.620915,5.620915 0 1 0 -11.241830,0 z"></path>
-      <g>
-        <text x="970.000000" y="651.436209" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Sargon_of_Akkad</text></g></g></g></svg>
+    <defs/>
+    <g id="graph-misc">
+        <g id="graph-background">
+            <path style="fill:#ffffff;fill-opacity:1.000000;fill-rule:nonzero;" d=" M 0.000000 0.000000 L 1000.000000 0.000000 L 1000.000000 1000.000000 L 0.000000 1000.000000 Z"/>
+        </g>
+    </g>
+    <g id="elements">
+        <g id="graph-background">
+            <path style="fill:#ffffff;fill-opacity:1.000000;fill-rule:nonzero;" d=" M 0.000000 0.000000 L 1000.000000 0.000000 L 1000.000000 1000.000000 L 0.000000 1000.000000 Z"/>
+        </g>
+        <g id="node-255603">
+            <path style="fill:#f4000b;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(492.297597,30.000000)" d=" m -9.542483 0 a 9.542483,9.542483 0 1 0 19.084967,0 9.542483,9.542483 0 1 0 -19.084967,0 z"/>
+            <g>
+                <text x="492.297597" y="30.000000" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Senusret_I</text>
+            </g>
+        </g>
+        <g id="node-232836">
+            <path style="fill:#ed0012;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(363.892291,970.000000)" d=" m -9.281046 0 a 9.281046,9.281046 0 1 0 18.562092,0 9.281046,9.281046 0 1 0 -18.562092,0 z"/>
+            <g>
+                <text x="363.892291" y="970.000000" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Mentuhotep_IV</text>
+            </g>
+        </g>
+        <g id="node-287018">
+            <path style="fill:#000000;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(30.000000,432.864639)" d=" m -5.000000 0 a 5.000000,5.000000 0 1 0 10.000000,0 5.000000,5.000000 0 1 0 -10.000000,0 z"/>
+            <g>
+                <text x="30.000000" y="432.864639" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Mentuhotep_II</text>
+            </g>
+        </g>
+        <g id="node-3163">
+            <path style="fill:#90006f;fill-opacity:1.000000;fill-rule:nonzero;stroke:#505050;stroke-width:1.000000px;" transform="translate(970.000000,651.436209)" d=" m -5.620915 0 a 5.620915,5.620915 0 1 0 11.241830,0 5.620915,5.620915 0 1 0 -11.241830,0 z"/>
+            <g>
+                <text x="970.000000" y="651.436209" fill="#000000" text-anchor="middle" alignment-baseline="central" font-size="10.000000" font-family="default">Sargon_of_Akkad</text>
+            </g>
+        </g>
+    </g>
+</svg>
+
