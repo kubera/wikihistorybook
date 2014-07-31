@@ -43,4 +43,9 @@ public class SvgNode implements Comparable<SvgNode> {
         this.weight = Double.valueOf(weight);
     }
 
+    @Override
+    public String toString() {
+        return id + " " + weight;
+    }
+
 }

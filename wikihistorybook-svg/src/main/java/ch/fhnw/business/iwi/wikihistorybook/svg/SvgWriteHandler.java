@@ -20,7 +20,7 @@ public class SvgWriteHandler extends SvgHandler {
     private ByteArrayOutputStream outputStream;
     private XMLStreamWriter out;
     private boolean enteredATag = false;
-    private int writeTitles = 1;
+    private int writeTitles = 5;
 
     public SvgWriteHandler(ByteArrayOutputStream outputStream) {
         this.outputStream = outputStream;
@@ -28,6 +28,7 @@ public class SvgWriteHandler extends SvgHandler {
 
     @Override
     public void startDocument() throws SAXException {
+        allNodes.computeTop(writeTitles);
         try {
             out = XMLOutputFactory.newInstance().createXMLStreamWriter(new OutputStreamWriter(outputStream, "utf-8"));
         } catch (UnsupportedEncodingException e) {
@@ -53,7 +54,7 @@ public class SvgWriteHandler extends SvgHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         String id = getId(attributes);
         try {
-            if (!isTagContainingTitleOfNode(qName)) {
+            if (!isTagContainingTitleOfNode(qName) || canWriteText()) {
                 out.writeStartElement(qName);
                 for (int i = 0; i < attributes.getLength(); i++) {
                     String value = attributes.getValue(i);
@@ -89,7 +90,7 @@ public class SvgWriteHandler extends SvgHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            if (!isTagContainingTitleOfNode(qName)) {
+            if (!isTagContainingTitleOfNode(qName) || canWriteText()) {
                 out.writeEndElement();
                 if (isGSvgTag(qName) && enteredATag) {
                     out.writeEndElement();
@@ -100,8 +101,10 @@ public class SvgWriteHandler extends SvgHandler {
                 out.writeEndElement();
             }
             if (isGSvgTag(qName) && isInsideNode()) {
+                if (!isTagContainingTitleOfNode(qName) || canWriteText()) {
+                    --writeTitles;
+                }
                 currentNode = null;
-                --writeTitles;
             }
 
         } catch (XMLStreamException e) {
@@ -112,12 +115,18 @@ public class SvgWriteHandler extends SvgHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         try {
-            if (!(length > 0 && isInsideNode())) {
-                out.writeCharacters(ch, start, length);
+            if (!(length > 0 && isInsideNode()) || (length > 0 && canWriteText())) {
+                if (new String(ch, start, length).trim().length() > 0) {
+                    out.writeCharacters(ch, start, length);
+                }
             }
         } catch (XMLStreamException e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    private boolean canWriteText() {
+        return writeTitles >= 0 && allNodes.isTop(currentNode);
     }
 
 }
