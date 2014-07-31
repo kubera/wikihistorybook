@@ -10,7 +10,7 @@ The platform was created by Stefan Wagner, Scientific Assistant, Software Engine
 
 ## Technology Stack
 
-The architecture of this software is structured into the following modules based on requires [Maven][maven] version 3.1.0.
+The architecture of this software is structured into the following modules based on [Maven][maven] version 3.1.0.
 
 ### wikihistorybook-graph
 
@@ -45,6 +45,12 @@ Find the results in the maven target directories. e.g.
 * wikihistorybook/wikihistorybook-webapp/target/wikihistorybook.war
 * wikihistorybook/wikihistorybook-applet/target/wikihistorybook-applet-0.4.0-jar-with-dependencies.jar
 * wikihistorybook/wikihistorybook-\*/target/\*
+
+For deployment, use these commands. Make sure you have the permissions on the server. Check your `~/.m2/settings.xml`, add server settings if necessary.
+
+    mvn clean install
+    mvn tomcat7:deploy
+    mvn tomcat7:redeploy
 
 ### Known issues
 
