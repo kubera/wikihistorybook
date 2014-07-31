@@ -5,6 +5,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+/**
+ * Countes the current sessions. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class SessionCounterListener implements HttpSessionListener {
 
     private static int totalActiveSessions = 0;

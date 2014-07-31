@@ -20,6 +20,12 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+/**
+ * Simple test to manipulate a wikihistory SVG graph image. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class SvgManipulatorTest {
 
     private static final String SIMPLE_SVG_FILE_NAME = "/gen-img_-2000.svg";

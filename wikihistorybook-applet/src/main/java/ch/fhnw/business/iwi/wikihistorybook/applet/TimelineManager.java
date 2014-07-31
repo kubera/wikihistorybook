@@ -10,6 +10,12 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
+/**
+ * The slider events. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 class TimelineManager implements ChangeListener {
 
     private final static Logger LOGGER = Logger.getLogger(TimelineManager.class.getName());

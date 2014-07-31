@@ -7,6 +7,12 @@ import javax.faces.bean.ManagedBean;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 
+/**
+ * Encapsulates the persistence singleton instance. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 @ManagedBean
 @ApplicationScoped
 public class Persistence implements Serializable {

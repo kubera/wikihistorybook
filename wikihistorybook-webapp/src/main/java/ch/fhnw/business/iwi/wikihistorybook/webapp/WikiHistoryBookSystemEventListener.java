@@ -12,6 +12,12 @@ import org.apache.log4j.Logger;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 
+/**
+ * The applications start and stop events. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
     private final static Logger LOGGER = Logger.getLogger(WikiHistoryBookSystemEventListener.class.getName());

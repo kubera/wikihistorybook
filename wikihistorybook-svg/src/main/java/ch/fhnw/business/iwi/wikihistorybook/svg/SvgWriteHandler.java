@@ -1,8 +1,11 @@
 package ch.fhnw.business.iwi.wikihistorybook.svg;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLOutputFactory;
@@ -13,14 +16,26 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-public class SvgWriteHandler extends SvgHandler {
+/**
+ * Manipulates the input SVG graph by
+ * <ul>
+ * <li>adding tool tips on nodes</li>
+ * <li>adding hyperlinks on nodes</li>
+ * <li>removes partly the text on nodes</li>
+ * <li>adds additional attributes to tag</li>
+ * </ul>
+ * 
+ * @author Stefan Wagner
+ * 
+ */
+public class SvgWriteHandler extends SvgAbstractHandler {
 
     private final static Logger LOGGER = Logger.getLogger(SvgWriteHandler.class);
 
     private ByteArrayOutputStream outputStream;
     private XMLStreamWriter out;
     private boolean enteredATag = false;
-    private int writeTitles = 5;
+    private int writeTitles = getProperty("show.text.on.nodes");
 
     public SvgWriteHandler(ByteArrayOutputStream outputStream) {
         this.outputStream = outputStream;
@@ -127,6 +142,26 @@ public class SvgWriteHandler extends SvgHandler {
 
     private boolean canWriteText() {
         return writeTitles >= 0 && allNodes.isTop(currentNode);
+    }
+
+    private int getProperty(String key) {
+        Properties prop = new Properties();
+        InputStream input = null;
+        try {
+            input = SvgWriteHandler.class.getClassLoader().getResourceAsStream("wikihistorybook-svg.properties");
+            prop.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return Integer.valueOf(prop.getProperty(key));
     }
 
 }

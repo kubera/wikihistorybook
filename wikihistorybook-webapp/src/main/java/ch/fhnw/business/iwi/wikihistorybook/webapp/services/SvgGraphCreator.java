@@ -14,6 +14,12 @@ import org.apache.log4j.Logger;
 import ch.fhnw.business.iwi.wikihistorybook.svg.SvgWikiHistoryBook;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.Persistence;
 
+/**
+ * Creates the SVG as a singleton service (application scope). 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 @ManagedBean(name="svgGraphCreator")
 @ApplicationScoped
 public class SvgGraphCreator implements Serializable {

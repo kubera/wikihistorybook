@@ -3,9 +3,16 @@ package ch.fhnw.business.iwi.wikihistorybook.svg;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-public class SvgAnalyser extends SvgHandler {
-    
-    public SvgAnalyser() {
+/**
+ * Analyzes the generated SVG and collects important properties based on the XML
+ * SAX API.
+ * 
+ * @author Stefan Wagner
+ * 
+ */
+public class SvgAnalyseHandler extends SvgAbstractHandler {
+
+    public SvgAnalyseHandler() {
         allNodes = new SvgAllNodes();
     }
 

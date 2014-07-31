@@ -7,6 +7,12 @@ import org.graphstream.graph.Node;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swingViewer.util.DefaultMouseManager;
 
+/**
+ * The mouse events. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class InternalMouseManager extends DefaultMouseManager {
 	
 	GraphicElement ge = null;

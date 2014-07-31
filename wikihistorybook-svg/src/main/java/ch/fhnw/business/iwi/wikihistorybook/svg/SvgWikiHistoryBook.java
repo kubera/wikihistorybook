@@ -14,16 +14,23 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
+/**
+ * Main class to generate the SVG image of a certain year of the
+ * wikihistorybook.
+ * 
+ * @author Stefan Wagner
+ * 
+ */
 public class SvgWikiHistoryBook implements IWikiBookContainer {
 
     private final static Logger LOGGER = Logger.getLogger(SvgWikiHistoryBook.class);
 
     private final ByteArrayOutputStream svgStream = new ByteArrayOutputStream();
 
-    private int maxNodes; 
-    
+    private int maxNodes;
+
     public SvgWikiHistoryBook(int year, int maxNodes, DBProvider dbProvider) {
-    	this.maxNodes = maxNodes;
+        this.maxNodes = maxNodes;
         GraphFactory graphFactory = null;
         try {
             graphFactory = new GraphFactory(year, dbProvider);

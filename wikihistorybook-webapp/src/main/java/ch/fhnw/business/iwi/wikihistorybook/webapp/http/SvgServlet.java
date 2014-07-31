@@ -15,6 +15,12 @@ import org.apache.log4j.Logger;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.SvgController;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
 
+/**
+ * Servlet for the SVG request. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class SvgServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

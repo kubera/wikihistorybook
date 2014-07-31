@@ -9,6 +9,12 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
+/**
+ * This class is mainly copied from the students work. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class DBProvider {
 
     private final static Logger LOGGER = Logger.getLogger(DBProvider.class.getName());

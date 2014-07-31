@@ -5,6 +5,12 @@ import java.awt.event.KeyEvent;
 
 import org.graphstream.ui.swingViewer.util.DefaultShortcutManager;
 
+/**
+ * The key board events. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class InternalKeyManager extends DefaultShortcutManager {
 	
 	

@@ -10,6 +10,12 @@ import org.graphstream.stream.file.FileSinkSVG2;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Simple test to trigger the graph-stream graph generation. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class GraphTests {
 
     @Test

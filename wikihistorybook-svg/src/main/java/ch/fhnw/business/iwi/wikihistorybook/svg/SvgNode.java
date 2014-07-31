@@ -1,5 +1,11 @@
 package ch.fhnw.business.iwi.wikihistorybook.svg;
 
+/**
+ * Container for a SVG Wikihistory graph node.
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class SvgNode implements Comparable<SvgNode> {
 
     private String id;

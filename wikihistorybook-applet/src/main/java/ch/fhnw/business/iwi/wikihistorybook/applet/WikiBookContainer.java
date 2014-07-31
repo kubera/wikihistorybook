@@ -36,6 +36,13 @@ import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
+/**
+ * Main class, mainly copied from the students work. 
+ * The {@link IWikiBookContainer} interface encapsulates the swing stuff. 
+ * 
+ * @author Stefan Wagner
+ *
+ */
 public class WikiBookContainer extends JApplet implements IWikiBookContainer {
 
         private final static Logger LOGGER = Logger.getLogger(WikiBookContainer.class.getName()); 

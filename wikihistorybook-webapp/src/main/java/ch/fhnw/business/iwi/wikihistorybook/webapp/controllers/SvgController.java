@@ -48,6 +48,7 @@ public class SvgController implements Filter, Serializable {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
+        // get the controller from the session to save the attributes!
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         SvgController svgController = (SvgController) session.getAttribute("svgController");
         if (parameterExists("maxNodes", request)) {

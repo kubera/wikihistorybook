@@ -3,7 +3,13 @@ package ch.fhnw.business.iwi.wikihistorybook.svg;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-public abstract class SvgHandler extends DefaultHandler {
+/**
+ * The abstract XML SAX handler.
+ * 
+ * @author Stefan Wagner
+ *
+ */
+public abstract class SvgAbstractHandler extends DefaultHandler {
 
     protected SvgAllNodes allNodes = new SvgAllNodes();
     protected SvgNode currentNode = null;

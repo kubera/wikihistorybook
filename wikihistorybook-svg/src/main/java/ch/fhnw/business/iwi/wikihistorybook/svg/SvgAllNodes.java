@@ -7,6 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+/**
+ * Contains all SVG Wikihistory graph nodes in a
+ * <ul>
+ * <li>{@link Map} by node id</li>
+ * <li>{@link TreeSet} sorted by weight attribute</li>
+ * </ul>
+ * 
+ * @author Stefan Wagner
+ */
 public class SvgAllNodes {
 
     private Map<String, SvgNode> nodesById = new HashMap<String, SvgNode>();
