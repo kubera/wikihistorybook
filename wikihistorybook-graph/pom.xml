@@ -14,7 +14,7 @@
 
 	<packaging>jar</packaging>
 
-	<name>Wikihistorybook Graph</name>
+	<name>Wikihistorybook Graph-Stream Generation</name>
 
 	<dependencies>
 

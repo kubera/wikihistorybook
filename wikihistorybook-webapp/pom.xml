@@ -14,7 +14,7 @@
 
 	<packaging>war</packaging>
 
-	<name>Interactive Wiki History Book</name>
+	<name>Interactive WikiHistoryBook Web-Application</name>
 
 	<properties>
 		<wikihistorybook.war.name>wikihistorybook</wikihistorybook.war.name>

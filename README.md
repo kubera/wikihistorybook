@@ -10,7 +10,7 @@ The platform was created by Stefan Wagner, Scientific Assistant, Software Engine
 
 ## Technology Stack
 
-The architecture of this software is structured into the following modules based on [Maven][maven].
+The architecture of this software is structured into the following modules based on requires [Maven][maven] version 3.1.0.
 
 ### wikihistorybook-graph
 
@@ -48,7 +48,8 @@ Find the results in the maven target directories. e.g.
 
 ### Known issues
 
-There is a [known bug][maven-jarsigner-plugin-bug] under MS-Windows in the [maven-jarsigner-plugin][maven-jarsigner-plugin] which is used for the wikihistorybook applet version. 
+* There is a [known bug][maven-jarsigner-plugin-bug] under MS-Windows in the [maven-jarsigner-plugin][maven-jarsigner-plugin] which is used for the wikihistorybook applet version. 
+* The plugin com.github.klieber:phantomjs-maven-plugin:0.4 requires Maven version 3.1.0
 
 [war]: http://en.wikipedia.org/wiki/WAR_%28file_format%29
 [maven-jarsigner-plugin]: http://maven.apache.org/plugins/maven-jarsigner-plugin/
