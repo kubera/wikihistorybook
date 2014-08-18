@@ -38,6 +38,8 @@
 		<wikihistorybook.applet.version>0.5.0</wikihistorybook.applet.version>
 		<wikihistorybook.svg.name>wikihistorybook-svg</wikihistorybook.svg.name>
 		<wikihistorybook.svg.version>0.7.0</wikihistorybook.svg.version>
+		<wikihistorybook.json.name>wikihistorybook-json</wikihistorybook.json.name>
+		<wikihistorybook.json.version>0.1.0</wikihistorybook.json.version>
 		<wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
 		<wikihistorybook.webapp.version>1.0.0</wikihistorybook.webapp.version>
 
