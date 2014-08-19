@@ -13,10 +13,10 @@ import org.apache.log4j.Logger;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.Persistence;
 
 /**
- * The applications start and stop events. 
+ * The applications start and stop events.
  * 
  * @author Stefan Wagner
- *
+ * 
  */
 public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
@@ -26,14 +26,19 @@ public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
     @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
+        try {
+            if (event instanceof PostConstructApplicationEvent) {
+                LOGGER.info("Start Wikihistorybook Webapp");
+                getPersistence().initFilePersistence();
+            }
 
-        if (event instanceof PostConstructApplicationEvent) {
-            LOGGER.info("Start Wikihistorybook Webapp");
-        }
-
-        if (event instanceof PreDestroyApplicationEvent) {
-            LOGGER.info("Shutdown Wikihistorybook Webapp");
-            getPersistence().getDBProvider().closeConnection();
+            if (event instanceof PreDestroyApplicationEvent) {
+                LOGGER.info("Shutdown Wikihistorybook Webapp");
+                getPersistence().getDBProvider().closeConnection();
+                getPersistence().closeFilePersistence();
+            }
+        } catch (Exception e) {
+            LOGGER.info("this exception should only happen in development: " + e.getMessage());
         }
 
     }

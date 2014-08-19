@@ -2,8 +2,6 @@ package ch.fhnw.business.iwi.wikihistorybook.webapp.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -30,14 +28,11 @@ public class SvgGraphCreator implements Serializable {
     @ManagedProperty(value = "#{persistence}")
     private Persistence persistence;
 
-     private transient Map<String, ByteArrayOutputStream> images;
-
     public String createSvgStreamAndStoreToSession(int year, int maxNodes) {
         String imageName = imageName(year, maxNodes);
-        ByteArrayOutputStream svgStream = getImages().get(imageName);
-        if (svgStream == null) {
-            svgStream = createSvgGraph(year, maxNodes);
-            getImages().put(imageName, svgStream);
+        if (!persistence.fileStreamExists(imageName)) {
+            ByteArrayOutputStream svgStream = createSvgGraph(year, maxNodes);
+            persistence.writeFileStream(imageName, svgStream);
             LOGGER.debug("svg stream created for year: " + year + " with max nodes: " + maxNodes);
         }
         return imageName;
@@ -49,7 +44,7 @@ public class SvgGraphCreator implements Serializable {
     }
 
     public ByteArrayOutputStream getSvgStream(String imageName) {
-        return getImages().get(imageName);
+        return persistence.readFileStream(imageName);
     }
 
     public ByteArrayOutputStream createSvgGraph(int year, int maxNodes) {
@@ -61,13 +56,6 @@ public class SvgGraphCreator implements Serializable {
         return String.format("gen-img_%d_%d.svg", year, maxNodes);
     }
 
-    private Map<String, ByteArrayOutputStream> getImages() {
-        if (images == null) {
-            images = new HashMap<String, ByteArrayOutputStream>();
-        }
-        return images;
-    }
-    
     public void setPersistence(Persistence persistence) {
         this.persistence = persistence;
     }
