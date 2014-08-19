@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.Persistence;
+
 /**
  * Countes the current sessions. 
  * 

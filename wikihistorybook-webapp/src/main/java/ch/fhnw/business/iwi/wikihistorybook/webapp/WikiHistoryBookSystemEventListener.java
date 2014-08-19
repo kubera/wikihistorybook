@@ -10,7 +10,7 @@ import javax.faces.event.SystemEventListener;
 
 import org.apache.log4j.Logger;
 
-import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.Persistence;
 
 /**
  * The applications start and stop events. 
@@ -33,7 +33,7 @@ public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
         if (event instanceof PreDestroyApplicationEvent) {
             LOGGER.info("Shutdown Wikihistorybook Webapp");
-            getDBProvider().closeConnection();
+            getPersistence().getDBProvider().closeConnection();
         }
 
     }
@@ -44,12 +44,12 @@ public class WikiHistoryBookSystemEventListener implements SystemEventListener {
 
     }
 
-    private DBProvider getDBProvider() {
+    private Persistence getPersistence() {
         if (persistence == null) {
             persistence = (Persistence) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
                     .get("persistence");
         }
-        return persistence.getDBProvider();
+        return persistence;
     }
 
 }

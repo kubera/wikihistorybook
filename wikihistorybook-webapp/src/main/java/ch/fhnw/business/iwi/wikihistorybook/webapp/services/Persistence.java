@@ -1,4 +1,4 @@
-package ch.fhnw.business.iwi.wikihistorybook.webapp;
+package ch.fhnw.business.iwi.wikihistorybook.webapp.services;
 
 import java.io.Serializable;
 
