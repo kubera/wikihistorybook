@@ -27,11 +27,16 @@
 			<artifactId>${wikihistorybook.graph.name}</artifactId>
 			<version>${wikihistorybook.graph.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>${wikihistorybook.svg.name}</artifactId>
-			<version>${wikihistorybook.svg.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${wikihistorybook.svg.name}</artifactId>
+            <version>${wikihistorybook.svg.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${wikihistorybook.json.name}</artifactId>
+            <version>${wikihistorybook.json.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>${wikihistorybook.applet.name}</artifactId>

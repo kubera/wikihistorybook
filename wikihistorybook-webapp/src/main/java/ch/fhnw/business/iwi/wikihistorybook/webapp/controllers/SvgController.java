@@ -42,7 +42,7 @@ public class SvgController implements Filter, Serializable {
     }
 
     public String getSvgStream() {
-        return svgGraphCreator.getSvgStream(year, maxNodes).toString();
+        return svgGraphCreator.getStream(year, maxNodes).toString();
     }
 
     @Override

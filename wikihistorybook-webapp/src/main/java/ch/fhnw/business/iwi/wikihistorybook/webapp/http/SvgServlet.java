@@ -30,7 +30,7 @@ public class SvgServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String imageName = request.getPathInfo().substring(1);
-        ByteArrayOutputStream imageStream = getSvgGraphCreator().getSvgStream(imageName);
+        ByteArrayOutputStream imageStream = getSvgGraphCreator().getStream(imageName);
         setImageStream2Response(imageStream, response);
     }
 
@@ -41,7 +41,7 @@ public class SvgServlet extends HttpServlet {
         int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
         LOGGER.debug(String.format("receiving svg image values: year %d, maxNodes %d", year, maxNodes));
         setValues2Session(year, request);
-        String imageName = getSvgGraphCreator().createSvgStreamAndStoreToSession(year, maxNodes);
+        String imageName = getSvgGraphCreator().createStreamAndStore(year, maxNodes);
         setImageName2Response(imageName, response);
     }
 
