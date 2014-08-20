@@ -6,10 +6,10 @@
 <h:body>
 	<ui:composition template="/WEB-INF/templates/commonLayout.xhtml">
 
-		<ui:param name="pageTitle" value="Server-side Image processing" />
-		<ui:param name="currentPage" value="svg" />
+		<ui:param name="pageTitle" value="Server-side data processing, client-side dynamically rendering" />
+		<ui:param name="currentPage" value="json-d3js" />
 		<ui:param name="alternativeVersion"
-			value="#{properties['svg.version']}" />
+			value="#{properties['json.version']}" />
 
 		<ui:define name="content">
 
@@ -65,7 +65,7 @@
 		</ui:define>
 
 		<ui:define name="sidebar-module">
-			<ui:include src="svg-techstack.xhtml"></ui:include>
+            <ui:include src="json-techstack.xhtml"></ui:include>
 		</ui:define>
 
 	</ui:composition>
