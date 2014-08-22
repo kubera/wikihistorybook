@@ -1,6 +1,6 @@
 var yearSlider = new YearSlider();
 
-function setup(url, sliderValue, zoomEnabled) {
+function setup(url, sliderValue, zoomEnabled, jsonFileName) {
 	$("#spinner").spinner({
 		stop : maxNodesSpinnerSpinAction,
 		change : maxNodesSpinnerSpinAction
@@ -28,6 +28,63 @@ function setup(url, sliderValue, zoomEnabled) {
 	} else {
 		disableUiZoom();
 	}
+	d3Init(url + "/genjson/", jsonFileName);
+}
+
+function d3Init(url, jsonFileName) {
+	var imageSize = $("#imageWrap").width();
+
+	var width = imageSize, height = imageSize;
+
+	var color = d3.scale.category20();
+
+	var force = d3.layout.force().charge(-40).linkDistance(60).size(
+			[ width, height ]);
+
+	var svg = d3.select("#imageWrap").append("svg").attr("width", width).attr(
+			"height", height).attr("id", "d3svg");
+
+	d3.json(url + jsonFileName, function(error, graph) {
+		force.nodes(graph.nodes).links(graph.links).start();
+
+		var link = svg.selectAll(".link").data(graph.links).enter().append(
+				"line").attr("class", "link").style("stroke-width",
+				function(d) {
+					return Math.sqrt(d.value);
+				});
+
+		var node = svg.selectAll(".node").data(graph.nodes).enter().append("a")
+				.attr("xlink:href", function(d) {
+					return "http://en.wikipedia.org/wiki/" + d.name;
+				}).attr('target', '_blank').append("circle").attr("class",
+						"node").attr("r", function(d) {
+					return 3 * parseInt(d.group);
+				}).style("fill", function(d) {
+					return color(d.group);
+				}).call(force.drag);
+
+		node.append("title").text(function(d) {
+			return d.name;
+		});
+
+		force.on("tick", function() {
+			link.attr("x1", function(d) {
+				return d.source.x;
+			}).attr("y1", function(d) {
+				return d.source.y;
+			}).attr("x2", function(d) {
+				return d.target.x;
+			}).attr("y2", function(d) {
+				return d.target.y;
+			});
+
+			node.attr("cx", function(d) {
+				return d.x;
+			}).attr("cy", function(d) {
+				return d.y;
+			});
+		});
+	});
 }
 
 function maxNodesSpinnerSpinAction(event, ui) {
@@ -88,8 +145,8 @@ function svgPan() {
 	$("#imageWrap").css('min-height', width);
 
 	var zoomscale = $("#zoomScaleSpinner").spinner('value');
-	
-	panZoomSvg = svgPanZoom('#Wiki', {
+
+	panZoomSvg = svgPanZoom('#d3svg', {
 		zoomEnabled : true,
 		controlIconsEnabled : false,
 		fit : 0,
@@ -99,7 +156,7 @@ function svgPan() {
 }
 
 function changeActionSlider(url) {
-	var genImgUrl = url + '/gensvg/';
+	var genImgUrl = url + '/genjson/';
 	return function() {
 		$('#imageWrap').hide();
 		$.blockUI({
@@ -133,19 +190,12 @@ function blockUiMessage() {
 function changeActionSliderSuccess(genImgUrl) {
 	return function(imageName) {
 		$('#imageWrap').empty();
-		$('#imageWrap').load(genImgUrl + imageName,
-				function(response, status, xhr) {
-					if (status == "error") {
-						alert("could not reload svg");
-					}
-					if (status == "success") {
-						$('#imageWrap').fadeIn();
-					}
-					$.unblockUI();
-					if ($("#enableZoomBtn").hasClass('btn-warning')) {
-						svgPan();
-					}
-				});
+		d3Init(genImgUrl, imageName);
+		$('#imageWrap').fadeIn();
+		$.unblockUI();
+		if ($("#enableZoomBtn").hasClass('btn-warning')) {
+			svgPan();
+		}
 	};
 }
 

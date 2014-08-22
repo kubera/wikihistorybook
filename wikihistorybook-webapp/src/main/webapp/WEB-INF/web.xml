@@ -20,14 +20,22 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>svgServlet</servlet-name>
-		<servlet-class>ch.fhnw.business.iwi.wikihistorybook.webapp.http.SvgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>svgServlet</servlet-name>
-		<url-pattern>/gensvg/*</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>svgServlet</servlet-name>
+        <servlet-class>ch.fhnw.business.iwi.wikihistorybook.webapp.http.SvgServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>svgServlet</servlet-name>
+        <url-pattern>/gensvg/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>jsonServlet</servlet-name>
+        <servlet-class>ch.fhnw.business.iwi.wikihistorybook.webapp.http.JsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsonServlet</servlet-name>
+        <url-pattern>/genjson/*</url-pattern>
+    </servlet-mapping>
 	<context-param>
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
 		<param-value>/WEB-INF/wikihistorybook.taglib.xml</param-value>

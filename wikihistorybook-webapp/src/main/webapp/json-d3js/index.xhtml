@@ -6,7 +6,8 @@
 <h:body>
 	<ui:composition template="/WEB-INF/templates/commonLayout.xhtml">
 
-		<ui:param name="pageTitle" value="Server-side data processing, client-side dynamically rendering" />
+		<ui:param name="pageTitle"
+			value="Server-side data processing, client-side dynamically rendering" />
 		<ui:param name="currentPage" value="json-d3js" />
 		<ui:param name="alternativeVersion"
 			value="#{properties['json.version']}" />
@@ -23,13 +24,13 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<label for="spinner">Max. Nodes:</label> <input id="spinner"
-						class="spinner" value="#{svgController.maxNodes}"></input>
+						class="spinner" value="#{jsonController.maxNodes}"></input>
 
 					<div class="pull-right">
 						<button type="button" class="btn btn-success" id="enableZoomBtn"></button>
 						<label for="zoomScaleSpinner">with scale</label> <input
 							class="spinner" id="zoomScaleSpinner"
-							value="#{svgController.zoomScale}"></input>
+							value="#{jsonController.zoomScale}"></input>
 						<div class="btn-group">
 							<button type="button" class="btn btn-info" id="zoomInBtn"
 								onclick="zoomIn()">
@@ -47,25 +48,25 @@
 				</div>
 			</div>
 
-			<div id="imageWrap" class="container container-svg">
-				<h:outputText value="#{svgController.svgStream}" escape="false" />
+			<div id="imageWrap" class="container container-stream">
 			</div>
 
 			<h:outputStylesheet name="css/jquery-ui-1.11.0.css" />
 			<h:outputScript name="js/jquery-ui-1.11.0.min.js" target="head" />
 			<h:outputScript name="js/jquery.blockUI.js" target="head" />
-			<h:outputScript name="js/svg-pan-zoom.js" target="head" />
-			<h:outputScript name="js/SvgSlider.js" target="head" />
-			<h:outputScript name="js/wikihistorybook.js" target="head" />
+            <h:outputScript name="js/svg-pan-zoom.js" target="head" />
+            <h:outputScript name="js/d3.v3.min.js" target="head" />
+			<h:outputScript name="js/YearSlider.js" target="head" />
+			<h:outputScript name="js/json-d3.js" target="head" />
 
 			<script type="text/javascript">
-				$(setup('/#{properties['webapp.url.base']}', #{svgController.year}, #{svgController.zoomEnabled}));
+				$(setup('/#{properties['webapp.url.base']}', #{jsonController.year}, #{jsonController.zoomEnabled}, '#{jsonController.uniqueJsonName}'));
 			</script>
 
 		</ui:define>
 
 		<ui:define name="sidebar-module">
-            <ui:include src="json-techstack.xhtml"></ui:include>
+			<ui:include src="json-techstack.xhtml"></ui:include>
 		</ui:define>
 
 	</ui:composition>

@@ -1,4 +1,4 @@
-function SvgSlider() {
+function YearSlider() {
 
 	this.min = -2000;
 	this.max = 2000;
