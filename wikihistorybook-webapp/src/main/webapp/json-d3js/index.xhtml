@@ -25,6 +25,8 @@
 				<div class="panel-body">
 					<label for="spinner">Max. Nodes:</label> <input id="spinner"
 						class="spinner" value="#{jsonController.maxNodes}"></input>
+					<button type="button" class="btn btn-default" id="reloadGraphBtn"
+						onclick="reloadGraph()">Reload</button>
 
 					<div class="pull-right">
 						<button type="button" class="btn btn-success" id="enableZoomBtn"></button>
@@ -48,19 +50,19 @@
 				</div>
 			</div>
 
-			<div id="imageWrap" class="container container-stream">
-			</div>
+			<div id="imageWrap" class="container container-stream"></div>
 
 			<h:outputStylesheet name="css/jquery-ui-1.11.0.css" />
 			<h:outputScript name="js/jquery-ui-1.11.0.min.js" target="head" />
 			<h:outputScript name="js/jquery.blockUI.js" target="head" />
-            <h:outputScript name="js/svg-pan-zoom.js" target="head" />
-            <h:outputScript name="js/d3.v3.min.js" target="head" />
+			<h:outputScript name="js/svg-pan-zoom.js" target="head" />
+			<h:outputScript name="js/d3.v3.min.js" target="head" />
 			<h:outputScript name="js/YearSlider.js" target="head" />
 			<h:outputScript name="js/json-d3.js" target="head" />
 
 			<script type="text/javascript">
-				$(setup('/#{properties['webapp.url.base']}', #{jsonController.year}, #{jsonController.zoomEnabled}, '#{jsonController.uniqueJsonName}'));
+			    var baseUrl = '/#{properties['webapp.url.base']}/genjson/';
+			    $(setup(#{jsonController.year}, #{jsonController.zoomEnabled}, '#{jsonController.uniqueJsonName}'));
 			</script>
 
 		</ui:define>

@@ -54,7 +54,8 @@
 	<modules>
 		<module>${wikihistorybook.graph.name}</module>
 		<module>${wikihistorybook.applet.name}</module>
-		<module>${wikihistorybook.svg.name}</module>
+        <module>${wikihistorybook.svg.name}</module>
+        <module>${wikihistorybook.json.name}</module>
 		<module>${wikihistorybook.webapp.name}</module>
 	</modules>
 

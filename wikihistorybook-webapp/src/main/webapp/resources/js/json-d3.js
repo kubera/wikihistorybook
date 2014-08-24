@@ -1,6 +1,6 @@
 var yearSlider = new YearSlider();
 
-function setup(url, sliderValue, zoomEnabled, jsonFileName) {
+function setup(sliderValue, zoomEnabled, jsonFileName) {
 	$("#spinner").spinner({
 		stop : maxNodesSpinnerSpinAction,
 		change : maxNodesSpinnerSpinAction
@@ -15,7 +15,7 @@ function setup(url, sliderValue, zoomEnabled, jsonFileName) {
 		min : yearSlider.min,
 		max : yearSlider.max,
 		value : sliderValue,
-		change : changeActionSlider(url),
+		change : changeActionSlider,
 		slide : slideAction,
 		create : sliderCreated
 	});
@@ -28,23 +28,20 @@ function setup(url, sliderValue, zoomEnabled, jsonFileName) {
 	} else {
 		disableUiZoom();
 	}
-	d3Init(url + "/genjson/", jsonFileName);
+	d3Init(jsonFileName);
 }
 
-function d3Init(url, jsonFileName) {
+function d3Init(jsonFileName) {
 	var imageSize = $("#imageWrap").width();
-
-	var width = imageSize, height = imageSize;
-
+	var width = imageSize, height = (imageSize / 3) * 2;
 	var color = d3.scale.category20();
 
 	var force = d3.layout.force().charge(-40).linkDistance(60).size(
 			[ width, height ]);
-
 	var svg = d3.select("#imageWrap").append("svg").attr("width", width).attr(
 			"height", height).attr("id", "d3svg");
 
-	d3.json(url + jsonFileName, function(error, graph) {
+	d3.json(baseUrl + jsonFileName, function(error, graph) {
 		force.nodes(graph.nodes).links(graph.links).start();
 
 		var link = svg.selectAll(".link").data(graph.links).enter().append(
@@ -155,25 +152,30 @@ function svgPan() {
 	});
 }
 
-function changeActionSlider(url) {
-	var genImgUrl = url + '/genjson/';
-	return function() {
-		$('#imageWrap').hide();
-		$.blockUI({
-			message : blockUiMessage
-		});
-		$.ajax({
-			type : "POST",
-			url : genImgUrl,
-			data : {
-				year : $("#slider").slider('value'),
-				maxNodes : $("#spinner").spinner('value')
-			},
-			success : changeActionSliderSuccess(genImgUrl),
-			error : changeActionSliderError,
-			dataType : "text"
-		});
-	};
+function changeActionSlider() {
+	var currentYear = $("#slider").slider('value');
+	var suggestedNodes = yearSlider.suggestedNodesByYear(currentYear);
+	$("#spinner").spinner('value', suggestedNodes);
+	reloadGraph();
+}
+
+function reloadGraph() {
+	console.log("reloadGraph")
+	$('#imageWrap').hide();
+	$.blockUI({
+		message : blockUiMessage
+	});
+	$.ajax({
+		type : "POST",
+		url : baseUrl,
+		data : {
+			year : $("#slider").slider('value'),
+			maxNodes : $("#spinner").spinner('value')
+		},
+		success : changeActionSliderSuccess(),
+		error : changeActionSliderError,
+		dataType : "text"
+	});
 }
 
 function blockUiMessage() {
@@ -187,10 +189,10 @@ function blockUiMessage() {
 	};
 }
 
-function changeActionSliderSuccess(genImgUrl) {
+function changeActionSliderSuccess() {
 	return function(imageName) {
 		$('#imageWrap').empty();
-		d3Init(genImgUrl, imageName);
+		d3Init(imageName);
 		$('#imageWrap').fadeIn();
 		$.unblockUI();
 		if ($("#enableZoomBtn").hasClass('btn-warning')) {
@@ -251,5 +253,4 @@ function postZoomEnabled(zoomEnabled) {
 		}
 	};
 	$.post(url, data, response, "text");
-
 }

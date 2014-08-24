@@ -18,7 +18,7 @@ public class FileSinkD3Json extends FileSinkBase {
 
     private final static Logger LOGGER = Logger.getLogger(FileSinkD3Json.class.getName());
     private final static int EDGES_2_NODES_MULTIPLICATOR = 4;
-    
+
     protected void outputEndOfFile() throws IOException {
         print("]}");
     }
@@ -37,7 +37,7 @@ public class FileSinkD3Json extends FileSinkBase {
             Map<String, Integer> id2ArrayIndexMapping = new HashMap<String, Integer>();
             TreeSet<Double> allWeights = new TreeSet<Double>();
             List<Double> allEdgeWeights = new ArrayList<Double>();
-            
+
             prepareData(graph, id2ArrayIndexMapping, allWeights, allEdgeWeights);
             int nodesAdded = addNodes2Stream(graph, allWeights);
             print("],\"links\":[");
@@ -98,7 +98,10 @@ public class FileSinkD3Json extends FileSinkBase {
         Collections.sort(allEdgeWeights);
         int edges2Add = nodesAdded * EDGES_2_NODES_MULTIPLICATOR;
         int fromIndex = allEdgeWeights.size() > edges2Add ? allEdgeWeights.size() - edges2Add : 0;
-        List<Double> acceptedEdgeWeights = allEdgeWeights.subList(fromIndex, allEdgeWeights.size() - 1);
+        List<Double> acceptedEdgeWeights = Collections.<Double> emptyList();
+        if (!allEdgeWeights.isEmpty()) {
+            acceptedEdgeWeights = allEdgeWeights.subList(fromIndex, allEdgeWeights.size() - 1);
+        }
         boolean addComma = false;
         int edges = 0;
         for (Edge e : graph.getEachEdge()) {
