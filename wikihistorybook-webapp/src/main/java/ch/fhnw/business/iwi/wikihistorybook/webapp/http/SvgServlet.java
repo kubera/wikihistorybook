@@ -12,14 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.SvgController;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
 
 /**
- * Servlet for the SVG request. 
+ * Servlet for the SVG request.
  * 
  * @author Stefan Wagner
- *
+ * 
  */
 public class SvgServlet extends HttpServlet {
 
@@ -41,7 +42,7 @@ public class SvgServlet extends HttpServlet {
         int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
         LOGGER.debug(String.format("receiving svg image values: year %d, maxNodes %d", year, maxNodes));
         setValues2Session(year, request);
-        String imageName = getSvgGraphCreator().createStreamAndStore(year, maxNodes);
+        String imageName = getSvgGraphCreator().createStreamAndStore(new GraphData(year, maxNodes));
         setImageName2Response(imageName, response);
     }
 

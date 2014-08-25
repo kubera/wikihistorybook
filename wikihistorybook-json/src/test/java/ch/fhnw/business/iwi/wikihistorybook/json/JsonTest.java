@@ -11,6 +11,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 
 /**
  * Simple test to check json generation.
@@ -21,7 +22,7 @@ public class JsonTest {
 
     @Test
     public void generateJson() {
-        JsonWikiHistoryBook test = new JsonWikiHistoryBook(-1000, 1000, DBProvider.getInstance());
+        JsonWikiHistoryBook test = new JsonWikiHistoryBook(new GraphData(-1000, 1000), DBProvider.getInstance());
         ByteArrayOutputStream stream = test.getJsonStream();
 //        writeTmpFile(stream);
         assertThat(stream.size()).isGreaterThan(0);

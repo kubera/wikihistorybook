@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.json.JsonWikiHistoryBook;
 
 /**
@@ -22,18 +23,18 @@ public class JsonGraphCreator extends AbstractGraphCreator {
     private static final long serialVersionUID = 1L;
     private final static Logger LOGGER = Logger.getLogger(JsonGraphCreator.class);
 
-    public String createStreamAndStore(int year, int maxNodes) {
-        String imageName = imageName(year, maxNodes);
+    public String createStreamAndStore(GraphData graphData) {
+        String imageName = imageName(graphData.getYear(), graphData.getMaxNodes());
         if (!persistence.fileStreamExists(imageName)) {
-            ByteArrayOutputStream jsonStream = createGraphStream(year, maxNodes);
+            ByteArrayOutputStream jsonStream = createGraphStream(graphData);
             persistence.writeFileStream(imageName, jsonStream);
-            LOGGER.debug("json stream created for year: " + year + " with max nodes: " + maxNodes);
+            LOGGER.debug("json stream created for year: " + graphData.getYear() + " with max nodes: " + graphData.getMaxNodes());
         }
         return imageName;
     }
 
-    public ByteArrayOutputStream createGraphStream(int year, int maxNodes) {
-        JsonWikiHistoryBook jsonWikiHistoryBook = new JsonWikiHistoryBook(year, maxNodes, persistence.getDBProvider());
+    public ByteArrayOutputStream createGraphStream(GraphData graphData) {
+        JsonWikiHistoryBook jsonWikiHistoryBook = new JsonWikiHistoryBook(graphData, persistence.getDBProvider());
         return jsonWikiHistoryBook.getJsonStream();
     }
 

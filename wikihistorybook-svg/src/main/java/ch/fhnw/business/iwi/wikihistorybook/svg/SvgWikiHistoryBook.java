@@ -11,6 +11,7 @@ import org.graphstream.ui.layout.Layout;
 import org.graphstream.ui.layout.Layouts;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
@@ -27,13 +28,13 @@ public class SvgWikiHistoryBook implements IWikiBookContainer {
 
     private final ByteArrayOutputStream svgStream = new ByteArrayOutputStream();
 
-    private int maxNodes;
+    private GraphData graphData;
 
-    public SvgWikiHistoryBook(int year, int maxNodes, DBProvider dbProvider) {
-        this.maxNodes = maxNodes;
+    public SvgWikiHistoryBook(GraphData graphData, DBProvider dbProvider) {
+        this.graphData = graphData;
         GraphFactory graphFactory = null;
         try {
-            graphFactory = new GraphFactory(year, dbProvider);
+            graphFactory = new GraphFactory(graphData.getYear(), dbProvider);
             graphFactory.run(this);
         } catch (Exception e) {
             if (graphFactory != null) {
@@ -44,7 +45,7 @@ public class SvgWikiHistoryBook implements IWikiBookContainer {
 
     @Override
     public int getMaxNodes() {
-        return maxNodes;
+        return graphData.getMaxNodes();
     }
 
     @Override

@@ -18,32 +18,24 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphCreator;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphCreator;
 
 @ManagedBean
 @SessionScoped
 @WebFilter(urlPatterns = {"/json-d3js/maxNodes", "/json-d3js/zoomScale", "/json-d3js/zoomEnabled"})
-public class JsonController implements Filter, Serializable {
+public class JsonController extends AbstractStreamController implements Filter, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final static Logger LOGGER = Logger.getLogger(JsonController.class);
 
-    private int year = 0;
-    private int maxNodes = 1000;
-    private String zoomScale = "0.2";
-    private boolean zoomEnabled = false;
-
     @ManagedProperty("#{jsonGraphCreator}")
     private JsonGraphCreator jsonGraphCreator;
 
-    public String getUniqueJsonName() {
-        return jsonGraphCreator.createStreamAndStore(year, maxNodes);
-//        return jsonGraphCreator.imageName(year, maxNodes);
-    }
-
-    public String getJsonStream() {
-        return jsonGraphCreator.getStream(year, maxNodes).toString();
+    @Override
+    protected AbstractGraphCreator getGraphCreator() {
+        return jsonGraphCreator;
     }
 
     @Override
@@ -75,40 +67,6 @@ public class JsonController implements Filter, Serializable {
     public void destroy() {
     }
 
-    public String getMaxNodes() {
-        LOGGER.debug("getMaxNodes " + this.hashCode());
-        return String.valueOf(maxNodes);
-    }
-
-    public void setMaxNodes(int maxNodes) {
-        LOGGER.debug("setMaxNodes " + this.hashCode());
-        this.maxNodes = maxNodes;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getZoomScale() {
-        return zoomScale;
-    }
-
-    public void setZoomScale(String zoomScale) {
-        this.zoomScale = zoomScale;
-    }
-
-    public boolean isZoomEnabled() {
-        return zoomEnabled;
-    }
-
-    public void setZoomEnabled(boolean zoomEnabled) {
-        this.zoomEnabled = zoomEnabled;
-    }
-
     public void setJsonGraphCreator(JsonGraphCreator jsonGraphCreator) {
         this.jsonGraphCreator = jsonGraphCreator;
     }
@@ -117,5 +75,5 @@ public class JsonController implements Filter, Serializable {
         String param = request.getParameter(parameterName);
         return param != null && param.trim().length() > 0;
     }
-
+    
 }

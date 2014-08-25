@@ -11,6 +11,7 @@ import org.graphstream.ui.layout.Layouts;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.DBProvider;
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphFactory;
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.graph.IWikiBookContainer;
 
 /**
@@ -24,13 +25,13 @@ public class JsonWikiHistoryBook implements IWikiBookContainer {
 
     private final ByteArrayOutputStream svgStream = new ByteArrayOutputStream();
 
-    private int maxNodes;
+    private GraphData graphData;
 
-    public JsonWikiHistoryBook(int year, int maxNodes, DBProvider dbProvider) {
-        this.maxNodes = maxNodes;
+    public JsonWikiHistoryBook(GraphData graphData, DBProvider dbProvider) {
+        this.graphData = graphData;
         GraphFactory graphFactory = null;
         try {
-            graphFactory = new GraphFactory(year, dbProvider);
+            graphFactory = new GraphFactory(graphData.getYear(), dbProvider);
             graphFactory.run(this);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -43,7 +44,7 @@ public class JsonWikiHistoryBook implements IWikiBookContainer {
 
     @Override
     public int getMaxNodes() {
-        return maxNodes;
+        return graphData.getMaxNodes();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class JsonWikiHistoryBook implements IWikiBookContainer {
 
     @Override
     public void showGraph(Graph graph) {
-        FileSinkD3Json d3Json = new FileSinkD3Json();
+        FileSinkD3Json d3Json = new FileSinkD3Json(graphData);
         Layout layout = Layouts.newLayoutAlgorithm();
         Toolkit.computeLayout(graph, layout, 1.0);
         try {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.JsonController;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphCreator;
 
@@ -41,7 +42,7 @@ public class JsonServlet extends HttpServlet {
         int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
         LOGGER.debug(String.format("receiving json data values: year %d, maxNodes %d", year, maxNodes));
         setValues2Session(year, request);
-        String imageName = getJsonGraphCreator().createStreamAndStore(year, maxNodes);
+        String imageName = getJsonGraphCreator().createStreamAndStore(new GraphData(year, maxNodes));
         setImageName2Response(imageName, response);
     }
 

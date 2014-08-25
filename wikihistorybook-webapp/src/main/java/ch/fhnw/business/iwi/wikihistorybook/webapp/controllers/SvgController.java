@@ -18,31 +18,24 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphCreator;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
 
 @ManagedBean
 @SessionScoped
 @WebFilter(urlPatterns = {"/svg/maxNodes", "/svg/zoomScale", "/svg/zoomEnabled"})
-public class SvgController implements Filter, Serializable {
+public class SvgController extends AbstractStreamController implements Filter, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final static Logger LOGGER = Logger.getLogger(SvgController.class);
 
-    private int year = 0;
-    private int maxNodes = 1000;
-    private String zoomScale = "0.2";
-    private boolean zoomEnabled = false;
-
     @ManagedProperty("#{svgGraphCreator}")
     private SvgGraphCreator svgGraphCreator;
 
-    public String getUniqueSvgName() {
-        return svgGraphCreator.imageName(year, maxNodes);
-    }
-
-    public String getSvgStream() {
-        return svgGraphCreator.getStream(year, maxNodes).toString();
+    @Override
+    protected AbstractGraphCreator getGraphCreator() {
+        return svgGraphCreator;
     }
 
     @Override
@@ -72,40 +65,6 @@ public class SvgController implements Filter, Serializable {
 
     @Override
     public void destroy() {
-    }
-
-    public String getMaxNodes() {
-        LOGGER.debug("getMaxNodes " + this.hashCode());
-        return String.valueOf(maxNodes);
-    }
-
-    public void setMaxNodes(int maxNodes) {
-        LOGGER.debug("setMaxNodes " + this.hashCode());
-        this.maxNodes = maxNodes;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getZoomScale() {
-        return zoomScale;
-    }
-
-    public void setZoomScale(String zoomScale) {
-        this.zoomScale = zoomScale;
-    }
-
-    public boolean isZoomEnabled() {
-        return zoomEnabled;
-    }
-
-    public void setZoomEnabled(boolean zoomEnabled) {
-        this.zoomEnabled = zoomEnabled;
     }
 
     public void setSvgGraphCreator(SvgGraphCreator svgGraphCreator) {

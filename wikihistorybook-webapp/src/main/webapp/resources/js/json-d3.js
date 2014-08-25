@@ -160,7 +160,6 @@ function changeActionSlider() {
 }
 
 function reloadGraph() {
-	console.log("reloadGraph")
 	$('#imageWrap').hide();
 	$.blockUI({
 		message : blockUiMessage

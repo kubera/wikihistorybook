@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.svg.SvgWikiHistoryBook;
 
 /**
@@ -22,18 +23,18 @@ public class SvgGraphCreator extends AbstractGraphCreator {
     private static final long serialVersionUID = 1L;
     private final static Logger LOGGER = Logger.getLogger(SvgGraphCreator.class);
 
-    public String createStreamAndStore(int year, int maxNodes) {
-        String imageName = imageName(year, maxNodes);
+    public String createStreamAndStore(GraphData graphData) {
+        String imageName = imageName(graphData.getYear(), graphData.getMaxNodes());
         if (!persistence.fileStreamExists(imageName)) {
-            ByteArrayOutputStream svgStream = createGraphStream(year, maxNodes);
+            ByteArrayOutputStream svgStream = createGraphStream(graphData);
             persistence.writeFileStream(imageName, svgStream);
-            LOGGER.debug("svg stream created for year: " + year + " with max nodes: " + maxNodes);
+            LOGGER.debug("svg stream created for year: " + graphData.getYear() + " with max nodes: " + graphData.getMaxNodes());
         }
         return imageName;
     }
 
-    public ByteArrayOutputStream createGraphStream(int year, int maxNodes) {
-        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(year, maxNodes, persistence.getDBProvider());
+    public ByteArrayOutputStream createGraphStream(GraphData graphData) {
+        SvgWikiHistoryBook svgWikiHistoryBook = new SvgWikiHistoryBook(graphData, persistence.getDBProvider());
         return svgWikiHistoryBook.getSvgStream();
     }
 

@@ -14,10 +14,17 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.stream.file.FileSinkBase;
 
+import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
+
 public class FileSinkD3Json extends FileSinkBase {
 
     private final static Logger LOGGER = Logger.getLogger(FileSinkD3Json.class.getName());
     private final static int EDGES_2_NODES_MULTIPLICATOR = 4;
+    private GraphData graphInfo;
+    
+    public FileSinkD3Json(GraphData graphInfo) {
+        this.graphInfo = graphInfo;
+    }
 
     protected void outputEndOfFile() throws IOException {
         print("]}");
@@ -42,6 +49,8 @@ public class FileSinkD3Json extends FileSinkBase {
             int nodesAdded = addNodes2Stream(graph, allWeights);
             print("],\"links\":[");
             int edgesAdded = addEdges2Stream(graph, id2ArrayIndexMapping, allEdgeWeights, nodesAdded);
+            graphInfo.setNodes(nodesAdded);
+            graphInfo.setEdges(edgesAdded);
             LOGGER.debug("nodes: " + nodesAdded);
             LOGGER.debug("edges: " + edgesAdded);
         } catch (IOException e) {
@@ -95,11 +104,11 @@ public class FileSinkD3Json extends FileSinkBase {
 
     private int addEdges2Stream(Graph graph, Map<String, Integer> id2ArrayIndexMapping, List<Double> allEdgeWeights,
             int nodesAdded) throws IOException {
-        Collections.sort(allEdgeWeights);
-        int edges2Add = nodesAdded * EDGES_2_NODES_MULTIPLICATOR;
-        int fromIndex = allEdgeWeights.size() > edges2Add ? allEdgeWeights.size() - edges2Add : 0;
         List<Double> acceptedEdgeWeights = Collections.<Double> emptyList();
         if (!allEdgeWeights.isEmpty()) {
+            Collections.sort(allEdgeWeights);
+            int edges2Add = nodesAdded * EDGES_2_NODES_MULTIPLICATOR;
+            int fromIndex = allEdgeWeights.size() > edges2Add ? allEdgeWeights.size() - edges2Add : 0;
             acceptedEdgeWeights = allEdgeWeights.subList(fromIndex, allEdgeWeights.size() - 1);
         }
         boolean addComma = false;
