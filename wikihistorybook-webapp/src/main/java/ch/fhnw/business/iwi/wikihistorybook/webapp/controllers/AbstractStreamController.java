@@ -62,6 +62,22 @@ public abstract class AbstractStreamController {
         this.zoomEnabled = zoomEnabled;
     }
 
+    public int getActualNumberOfEdgesInGraph() {
+        return actualNumberOfEdgesInGraph;
+    }
+
+    public void setActualNumberOfEdgesInGraph(int actualNumberOfEdgesInGraph) {
+        this.actualNumberOfEdgesInGraph = actualNumberOfEdgesInGraph;
+    }
+
+    public int getActualNumberOfNodesInGraph() {
+        return actualNumberOfNodesInGraph;
+    }
+
+    public void setActualNumberOfNodesInGraph(int actualNumberOfNodesInGraph) {
+        this.actualNumberOfNodesInGraph = actualNumberOfNodesInGraph;
+    }
+
     private void keepGraphInfo(GraphData graphInfo) {
         if (graphInfo.getNodes() != null) {
             actualNumberOfNodesInGraph = graphInfo.getNodes();

@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphCreator;
@@ -23,7 +24,8 @@ import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphCreator;
 
 @ManagedBean
 @SessionScoped
-@WebFilter(urlPatterns = {"/json-d3js/maxNodes", "/json-d3js/zoomScale", "/json-d3js/zoomEnabled"})
+@WebFilter(urlPatterns = { "/json-d3js/maxNodes", "/json-d3js/zoomScale", "/json-d3js/zoomEnabled",
+        "/json-d3js/actualNodesEdges" })
 public class JsonController extends AbstractStreamController implements Filter, Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,7 +58,15 @@ public class JsonController extends AbstractStreamController implements Filter, 
             LOGGER.debug("zoomEnabled client side changed: " + request.getParameter("zoomEnabled"));
             jsonController.setZoomEnabled(Boolean.valueOf(request.getParameter("zoomEnabled")));
         }
-        response.setContentType("text/plain");
+        if (requestUrlContains("actualNodesEdges", request)) {
+            int nodes = jsonController.actualNumberOfNodesInGraph;
+            int edges = jsonController.actualNumberOfEdgesInGraph;
+            LOGGER.debug(String.format("client updates actual number of nodes (%d) and edges (%d).", nodes, edges));
+            byte[] dataInBytes = String.format("{ \"nodes\" : %d, \"edges\" : %d}", nodes, edges).getBytes();
+            response.setContentLength(dataInBytes.length);
+            IOUtils.write(dataInBytes, response.getOutputStream());
+        }
+        response.setContentType("application/json ");
     }
 
     @Override
@@ -75,5 +85,10 @@ public class JsonController extends AbstractStreamController implements Filter, 
         String param = request.getParameter(parameterName);
         return param != null && param.trim().length() > 0;
     }
-    
+
+    private boolean requestUrlContains(String requestUrlPart, ServletRequest request) {
+        String url = ((HttpServletRequest)request).getRequestURL().toString();
+        return url.contains(requestUrlPart);
+    }
+
 }

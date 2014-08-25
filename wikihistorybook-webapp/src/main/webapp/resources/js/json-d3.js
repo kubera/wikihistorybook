@@ -81,6 +81,10 @@ function d3Init(jsonFileName) {
 				return d.y;
 			});
 		});
+		if ($("#enableZoomBtn").hasClass('btn-warning')) {
+			svgPan();
+		}
+		setActualNodesEdges();
 	});
 }
 
@@ -194,9 +198,6 @@ function changeActionSliderSuccess() {
 		d3Init(imageName);
 		$('#imageWrap').fadeIn();
 		$.unblockUI();
-		if ($("#enableZoomBtn").hasClass('btn-warning')) {
-			svgPan();
-		}
 	};
 }
 
@@ -252,4 +253,16 @@ function postZoomEnabled(zoomEnabled) {
 		}
 	};
 	$.post(url, data, response, "text");
+}
+
+function setActualNodesEdges() {
+	var url = $(location).attr('href') + 'actualNodesEdges';
+	var response = function(data, textStatus, jqXHR) {
+		if (textStatus == 'success') {
+			$("#actualNodes").text(data.nodes.toString());
+			$("#actualEdges").text(data.edges.toString());
+			$("#actualYear").text($("#slider").slider('value'));
+		}
+	};
+	$.post(url, {}, response, "json");
 }

@@ -17,10 +17,10 @@ import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.JsonController;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphCreator;
 
 /**
- * Servlet for the Json requests. 
+ * Servlet for the Json requests.
  * 
  * @author Stefan Wagner
- *
+ * 
  */
 public class JsonServlet extends HttpServlet {
 
@@ -41,8 +41,9 @@ public class JsonServlet extends HttpServlet {
         int year = Integer.valueOf(request.getParameter("year"));
         int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
         LOGGER.debug(String.format("receiving json data values: year %d, maxNodes %d", year, maxNodes));
-        setValues2Session(year, request);
-        String imageName = getJsonGraphCreator().createStreamAndStore(new GraphData(year, maxNodes));
+        GraphData graphData = new GraphData(year, maxNodes);
+        String imageName = getJsonGraphCreator().createStreamAndStore(graphData);
+        setValues2Session(graphData, request);
         setImageName2Response(imageName, response);
     }
 
@@ -62,9 +63,15 @@ public class JsonServlet extends HttpServlet {
         IOUtils.write(nameInBytes, response.getOutputStream());
     }
 
-    private void setValues2Session(int year, HttpServletRequest request) {
+    private void setValues2Session(GraphData graphData, HttpServletRequest request) {
         JsonController controller = (JsonController) request.getSession().getAttribute("jsonController");
-        controller.setYear(year);
+        controller.setYear(graphData.getYear());
+        if (graphData.getNodes() != null) {
+            controller.setActualNumberOfNodesInGraph(graphData.getNodes());
+        }
+        if (graphData.getEdges() != null) {
+            controller.setActualNumberOfEdgesInGraph(graphData.getEdges());
+        }
     }
 
     private JsonGraphCreator getJsonGraphCreator() {
