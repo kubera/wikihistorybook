@@ -27,11 +27,12 @@
 			<h:outputScript name="js/jquery.blockUI.js" target="head" />
 			<h:outputScript name="js/svg-pan-zoom.js" target="head" />
 			<h:outputScript name="js/YearSlider.js" target="head" />
-			<h:outputScript name="js/wikihistorybook.js" target="head" />
+            <h:outputScript name="js/wikihistorybook-webapp.js" target="head" />
+            <h:outputScript name="js/wikihistorybook-svg.js" target="head" />
 
 			<script type="text/javascript">
 		        var baseUrl = '/#{properties['webapp.url.base']}/gensvg/';
-				$(setup(#{svgController.year}, #{svgController.zoomEnabled}));
+				$(setupSvg(#{svgController.year}, #{svgController.zoomEnabled}));
 			</script>
 
 		</ui:define>
