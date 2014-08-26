@@ -33,7 +33,7 @@ public class Persistence implements Serializable {
 
     private final static Logger LOGGER = Logger.getLogger(Persistence.class.getName());
 
-    private static final String WIKIHISTORYBOOK_HOME = ".wikihistorybook/";
+    private static final String WIKIHISTORYBOOK_HOME = FileUtils.getTempDirectoryPath() + "/wikihistorybook/";
     private static final String FILE_PERSISTENCE = "files/";
 
     private static final long serialVersionUID = 1L;
@@ -54,10 +54,22 @@ public class Persistence implements Serializable {
     public void initFilePersistence() {
         closeFilePersistence();
         try {
-            if (!getFilePersistenceDir().mkdir()) {
+            File root = new File(WIKIHISTORYBOOK_HOME);
+            if (!root.exists()) {
+                root.mkdir();
+            }
+            File filePersistenceDir = getFilePersistenceDir();
+            if (!filePersistenceDir.mkdir()) {
                 throw new IOException();
             }
+            if (!filePersistenceDir.canRead()) {
+                LOGGER.error("can not read from file-persistence directory");
+            }
+            if (!filePersistenceDir.canWrite()) {
+                LOGGER.error("can not write to file-persistence directory");
+            }
         } catch (IOException e) {
+            LOGGER.info(getFilePersistenceDir());
             LOGGER.error("file persistence can not be created");
         }
     }
@@ -108,6 +120,7 @@ public class Persistence implements Serializable {
     }
 
     public void writeFileStream(String fileName, ByteArrayOutputStream stream) {
+        LOGGER.debug("write file: " + fileName);
         File file = getFilePersistence(fileName);
         OutputStream outputStream = null;
         try {
@@ -124,6 +137,7 @@ public class Persistence implements Serializable {
 
     public void writeAbsoluteGraphData(String graphName, GraphData graphData) {
         File file = getFilePersistence(graphName, ".graphdata");
+        LOGGER.debug("write file: " + file.getName());
         OutputStream fos = null;
         ObjectOutputStream oos = null;
         try {

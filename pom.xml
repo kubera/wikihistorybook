@@ -41,7 +41,7 @@
 		<wikihistorybook.json.name>wikihistorybook-json</wikihistorybook.json.name>
 		<wikihistorybook.json.version>0.3.0</wikihistorybook.json.version>
 		<wikihistorybook.webapp.name>wikihistorybook-webapp</wikihistorybook.webapp.name>
-		<wikihistorybook.webapp.version>1.1.0</wikihistorybook.webapp.version>
+		<wikihistorybook.webapp.version>1.1.1</wikihistorybook.webapp.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
