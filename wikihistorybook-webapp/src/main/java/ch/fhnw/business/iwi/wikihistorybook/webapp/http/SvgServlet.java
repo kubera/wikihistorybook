@@ -4,7 +4,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.SvgController;
-import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphStreamCreator;
 
 /**
  * Servlet for the SVG request.
@@ -17,12 +17,12 @@ public class SvgServlet extends AbstractStreamServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected SvgGraphCreator getGraphCreator() {
-        Object bean = getServletContext().getAttribute("svgGraphCreator");
+    protected SvgGraphStreamCreator getGraphCreator() {
+        Object bean = getServletContext().getAttribute("svgGraphStreamCreator");
         if (bean == null) {
             bean = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("svgGraphCreator");
         }
-        return (SvgGraphCreator) bean;
+        return (SvgGraphStreamCreator) bean;
     }
 
     @Override

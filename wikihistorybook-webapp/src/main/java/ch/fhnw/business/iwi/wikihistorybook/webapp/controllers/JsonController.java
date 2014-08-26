@@ -9,7 +9,7 @@ import javax.servlet.Filter;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpSession;
 
-import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphCreator;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.JsonGraphStreamCreator;
 
 @ManagedBean
 @SessionScoped
@@ -19,11 +19,11 @@ public class JsonController extends AbstractStreamController implements Filter, 
 
     private static final long serialVersionUID = 1L;
 
-    @ManagedProperty("#{jsonGraphCreator}")
-    private JsonGraphCreator jsonGraphCreator;
+    @ManagedProperty("#{jsonGraphStreamCreator}")
+    private JsonGraphStreamCreator jsonGraphCreator;
 
     @Override
-    protected JsonGraphCreator getGraphCreator() {
+    protected JsonGraphStreamCreator getGraphStreamCreator() {
         return jsonGraphCreator;
     }
 
@@ -37,7 +37,7 @@ public class JsonController extends AbstractStreamController implements Filter, 
         return "application/json ";
     }
 
-    public void setJsonGraphCreator(JsonGraphCreator jsonGraphCreator) {
+    public void setJsonGraphCreator(JsonGraphStreamCreator jsonGraphCreator) {
         this.jsonGraphCreator = jsonGraphCreator;
     }
 

@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpSession;
 
-import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphCreator;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.SvgGraphStreamCreator;
 
 @ManagedBean
 @SessionScoped
@@ -17,11 +17,11 @@ public class SvgController extends AbstractStreamController implements Serializa
 
     private static final long serialVersionUID = 1L;
 
-    @ManagedProperty("#{svgGraphCreator}")
-    private SvgGraphCreator svgGraphCreator;
+    @ManagedProperty("#{svgGraphStreamCreator}")
+    private SvgGraphStreamCreator svgGraphCreator;
 
     @Override
-    protected SvgGraphCreator getGraphCreator() {
+    protected SvgGraphStreamCreator getGraphStreamCreator() {
         return svgGraphCreator;
     }
 
@@ -35,7 +35,7 @@ public class SvgController extends AbstractStreamController implements Serializa
         return "text/plain";
     }
 
-    public void setSvgGraphCreator(SvgGraphCreator svgGraphCreator) {
+    public void setSvgGraphCreator(SvgGraphStreamCreator svgGraphCreator) {
         this.svgGraphCreator = svgGraphCreator;
     }
 

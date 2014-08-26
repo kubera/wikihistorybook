@@ -16,7 +16,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
-import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphCreator;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphStreamCreator;
 
 public abstract class AbstractStreamController implements Filter {
 
@@ -29,20 +29,20 @@ public abstract class AbstractStreamController implements Filter {
     protected int actualNumberOfNodesInGraph;
     protected int actualNumberOfEdgesInGraph;
 
-    protected abstract AbstractGraphCreator getGraphCreator();
+    protected abstract AbstractGraphStreamCreator getGraphStreamCreator();
     protected abstract AbstractStreamController getStreamController(HttpSession session);
     protected abstract String getContentType();
 
     public String getUniqueName() {
         GraphData graphInfo = new GraphData(year, maxNodes);
-        String name = getGraphCreator().createStreamAndStore(graphInfo);
+        String name = getGraphStreamCreator().getGraphName(graphInfo);
         keepGraphInfo(graphInfo);
         return name;
     }
 
     public String getStream() {
         GraphData graphInfo = new GraphData(year, maxNodes);
-        ByteArrayOutputStream stream = getGraphCreator().getStream(graphInfo);
+        ByteArrayOutputStream stream = getGraphStreamCreator().getGraphStream(graphInfo);
         keepGraphInfo(graphInfo);
         return stream.toString();
     }

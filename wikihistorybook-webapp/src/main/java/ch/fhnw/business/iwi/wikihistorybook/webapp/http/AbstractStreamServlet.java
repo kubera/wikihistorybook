@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import ch.fhnw.business.iwi.wikihistorybook.graph.GraphData;
 import ch.fhnw.business.iwi.wikihistorybook.webapp.controllers.AbstractStreamController;
-import ch.fhnw.business.iwi.wikihistorybook.webapp.services.AbstractGraphCreator;
+import ch.fhnw.business.iwi.wikihistorybook.webapp.services.GraphStreamCreator;
 
 public abstract class AbstractStreamServlet extends HttpServlet {
 
@@ -21,14 +21,16 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     private final static Logger LOGGER = Logger.getLogger(AbstractStreamServlet.class);
 
-    protected abstract AbstractGraphCreator getGraphCreator();
+    protected abstract GraphStreamCreator getGraphCreator();
+
     protected abstract String getContentType();
+
     protected abstract AbstractStreamController getStreamController(HttpServletRequest request);
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String jsonName = request.getPathInfo().substring(1);
-        ByteArrayOutputStream jsonStream = getGraphCreator().getStream(jsonName);
+        ByteArrayOutputStream jsonStream = getGraphCreator().getGraphStream(jsonName);
         setJsonStream2Response(jsonStream, response);
     }
 
@@ -39,7 +41,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
         int maxNodes = Integer.valueOf(request.getParameter("maxNodes"));
         LOGGER.debug(String.format("receiving graph input: year %d, maxNodes %d", year, maxNodes));
         GraphData graphData = new GraphData(year, maxNodes);
-        String imageName = getGraphCreator().createStreamAndStore(graphData);
+        String imageName = getGraphCreator().getGraphName(graphData);
         setValues2Session(graphData, request);
         setImageName2Response(imageName, response);
     }
