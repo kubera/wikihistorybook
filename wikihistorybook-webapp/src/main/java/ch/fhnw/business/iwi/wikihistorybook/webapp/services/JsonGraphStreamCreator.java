@@ -27,7 +27,7 @@ public class JsonGraphStreamCreator extends AbstractGraphStreamCreator {
     }
 
     @Override
-    protected String imageName(int year, int maxNodes) {
+    protected String graphName(int year, int maxNodes) {
         return String.format("gen-data_%d_%d.json", year, maxNodes);
     }
 

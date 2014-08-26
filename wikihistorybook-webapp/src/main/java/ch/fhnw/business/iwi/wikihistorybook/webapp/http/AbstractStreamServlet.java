@@ -30,7 +30,9 @@ public abstract class AbstractStreamServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String jsonName = request.getPathInfo().substring(1);
-        ByteArrayOutputStream jsonStream = getGraphCreator().getGraphStream(jsonName);
+        GraphData graphData = new GraphData();
+        ByteArrayOutputStream jsonStream = getGraphCreator().getGraphStream(jsonName, graphData);
+        setValues2Session(graphData, request);
         setJsonStream2Response(jsonStream, response);
     }
 
@@ -64,7 +66,12 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     private void setValues2Session(GraphData graphData, HttpServletRequest request) {
         AbstractStreamController controller = getStreamController(request);
-        controller.setYear(graphData.getYear());
+        if (graphData.getYear() != null) {
+            controller.setYear(graphData.getYear());
+        }
+        if (graphData.getMaxNodes() != null) {
+            controller.setMaxNodes(graphData.getMaxNodes());
+        }
         if (graphData.getNodes() != null) {
             controller.setActualNumberOfNodesInGraph(graphData.getNodes());
         }

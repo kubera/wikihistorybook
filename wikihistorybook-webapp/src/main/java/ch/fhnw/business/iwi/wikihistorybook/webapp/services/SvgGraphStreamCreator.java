@@ -27,7 +27,7 @@ public class SvgGraphStreamCreator extends AbstractGraphStreamCreator {
     }
 
     @Override
-    protected String imageName(int year, int maxNodes) {
+    protected String graphName(int year, int maxNodes) {
         return String.format("gen-img_%d_%d.svg", year, maxNodes);
     }
 

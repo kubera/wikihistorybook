@@ -23,38 +23,40 @@ public abstract class AbstractGraphStreamCreator implements GraphStreamCreator, 
     @ManagedProperty(value = "#{persistence}")
     protected Persistence persistence;
 
-    protected abstract ByteArrayOutputStream createGraphStream(GraphData graphInfo);
+    protected abstract ByteArrayOutputStream createGraphStream(GraphData graphData);
 
-    protected abstract String imageName(int year, int maxNodes);
+    protected abstract String graphName(int year, int maxNodes);
 
     @Override
     public ByteArrayOutputStream getGraphStream(GraphData graphData) {
-        String imageName = imageName(graphData.getYear(), graphData.getMaxNodes());
+        String graphName = graphName(graphData.getYear(), graphData.getMaxNodes());
         ByteArrayOutputStream stream;
-        if (!persistence.fileStreamExists(imageName)) {
+        if (!persistence.fileStreamExists(graphName)) {
             stream = createAndStoreGraphStream(graphData);
         } else {
-            stream = persistence.readFileStream(imageName);
+            stream = persistence.readFileStream(graphName);
+            persistence.readGraphData(graphName, graphData);
         }
         return stream;
     }
 
     @Override
-    public ByteArrayOutputStream getGraphStream(String graphName) {
+    public ByteArrayOutputStream getGraphStream(String graphName, GraphData graphData) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         if (persistence.fileStreamExists(graphName)) {
             stream = persistence.readFileStream(graphName);
+            persistence.readGraphData(graphName, graphData);
         }
         return stream;
     }
 
     @Override
     public String getGraphName(GraphData graphData) {
-        String imageName = imageName(graphData.getYear(), graphData.getMaxNodes());
-        if (!persistence.fileStreamExists(imageName)) {
+        String graphName = graphName(graphData.getYear(), graphData.getMaxNodes());
+        if (!persistence.fileStreamExists(graphName)) {
             createAndStoreGraphStream(graphData);
         }
-        return imageName;
+        return graphName;
     }
 
     public void setPersistence(Persistence persistence) {
@@ -62,9 +64,10 @@ public abstract class AbstractGraphStreamCreator implements GraphStreamCreator, 
     }
 
     private ByteArrayOutputStream createAndStoreGraphStream(GraphData graphData) {
-        String imageName = imageName(graphData.getYear(), graphData.getMaxNodes());
+        String graphName = graphName(graphData.getYear(), graphData.getMaxNodes());
         ByteArrayOutputStream stream = createGraphStream(graphData);
-        persistence.writeFileStream(imageName, stream);
+        persistence.writeFileStream(graphName, stream);
+        persistence.writeAbsoluteGraphData(graphName, graphData);
         LOGGER.debug(String.format("stream created for year: %d with max nodes: %d", graphData.getYear(),
                 graphData.getMaxNodes()));
         return stream;

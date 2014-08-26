@@ -8,7 +8,7 @@ public interface GraphStreamCreator {
 
     public ByteArrayOutputStream getGraphStream(GraphData graphData);
 
-    public ByteArrayOutputStream getGraphStream(String graphName);
+    public ByteArrayOutputStream getGraphStream(String graphName, GraphData graphData);
 
     public String getGraphName(GraphData graphData);
 
