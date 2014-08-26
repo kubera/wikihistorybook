@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition>
+
+		<div id="slider">
+			<span id="min"></span> <span id="value"></span> <span id="middle"></span>
+			<span id="max"></span>
+		</div>
+		<br></br>
+		<br></br>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <label for="spinner">Max. Nodes:</label> <input id="spinner"
+                        class="spinner" value="#{maxNodes}"></input>
+                    <button type="button" class="btn btn-default" id="reloadGraphBtn"
+                        onclick="reloadGraph()">Reload</button>
+
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-success" id="enableZoomBtn"></button>
+                        <label for="zoomScaleSpinner">with scale</label> <input
+                            class="spinner" id="zoomScaleSpinner"
+                            value="#{zoomScale}"></input>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="zoomInBtn"
+                                onclick="zoomIn()">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button type="button" class="btn btn-info" id="zoomOutBtn"
+                                onclick="zoomOut()">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                            <button type="button" class="btn btn-info" id="resetZoomBtn"
+                                onclick="resetImage()">Reset</button>
+                        </div>
+
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><span>Actual nodes <span
+                            id="actualNodes" class="badge">?</span> and edges <span
+                            id="actualEdges" class="badge">?</span> in graph
+                            for year <span id="actualYear" class="badge">?</span>
+                    </span></li>
+                </ul>
+            </div>
+
+	</ui:composition>
+</h:body>
+</html>

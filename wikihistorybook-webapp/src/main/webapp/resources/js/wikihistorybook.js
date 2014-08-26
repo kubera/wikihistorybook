@@ -1,6 +1,6 @@
 var yearSlider = new YearSlider();
 
-function setup(url, sliderValue, zoomEnabled) {
+function setup(sliderValue, zoomEnabled) {
 	$("#spinner").spinner({
 		stop : maxNodesSpinnerSpinAction,
 		change : maxNodesSpinnerSpinAction
@@ -15,7 +15,7 @@ function setup(url, sliderValue, zoomEnabled) {
 		min : yearSlider.min,
 		max : yearSlider.max,
 		value : sliderValue,
-		change : changeActionSlider(url),
+		change : changeActionSlider,
 		slide : slideAction,
 		create : sliderCreated
 	});
@@ -28,6 +28,7 @@ function setup(url, sliderValue, zoomEnabled) {
 	} else {
 		disableUiZoom();
 	}
+	setActualNodesEdges();
 }
 
 function maxNodesSpinnerSpinAction(event, ui) {
@@ -88,7 +89,7 @@ function svgPan() {
 	$("#imageWrap").css('min-height', width);
 
 	var zoomscale = $("#zoomScaleSpinner").spinner('value');
-	
+
 	panZoomSvg = svgPanZoom('#Wiki', {
 		zoomEnabled : true,
 		controlIconsEnabled : false,
@@ -98,25 +99,29 @@ function svgPan() {
 	});
 }
 
-function changeActionSlider(url) {
-	var genImgUrl = url + '/gensvg/';
-	return function() {
-		$('#imageWrap').hide();
-		$.blockUI({
-			message : blockUiMessage
-		});
-		$.ajax({
-			type : "POST",
-			url : genImgUrl,
-			data : {
-				year : $("#slider").slider('value'),
-				maxNodes : $("#spinner").spinner('value')
-			},
-			success : changeActionSliderSuccess(genImgUrl),
-			error : changeActionSliderError,
-			dataType : "text"
-		});
-	};
+function changeActionSlider() {
+	var currentYear = $("#slider").slider('value');
+	var suggestedNodes = yearSlider.suggestedNodesByYear(currentYear);
+	$("#spinner").spinner('value', suggestedNodes);
+	reloadGraph();
+}
+
+function reloadGraph() {
+	$('#imageWrap').hide();
+	$.blockUI({
+		message : blockUiMessage
+	});
+	$.ajax({
+		type : "POST",
+		url : baseUrl,
+		data : {
+			year : $("#slider").slider('value'),
+			maxNodes : $("#spinner").spinner('value')
+		},
+		success : changeActionSliderSuccess(),
+		error : changeActionSliderError,
+		dataType : "text"
+	});
 }
 
 function blockUiMessage() {
@@ -130,15 +135,16 @@ function blockUiMessage() {
 	};
 }
 
-function changeActionSliderSuccess(genImgUrl) {
+function changeActionSliderSuccess() {
 	return function(imageName) {
 		$('#imageWrap').empty();
-		$('#imageWrap').load(genImgUrl + imageName,
+		$('#imageWrap').load(baseUrl + imageName,
 				function(response, status, xhr) {
 					if (status == "error") {
 						alert("could not reload svg");
 					}
 					if (status == "success") {
+						setActualNodesEdges();
 						$('#imageWrap').fadeIn();
 					}
 					$.unblockUI();
@@ -202,4 +208,19 @@ function postZoomEnabled(zoomEnabled) {
 	};
 	$.post(url, data, response, "text");
 
+}
+
+function setActualNodesEdges() {
+	var url = $(location).attr('href') + 'actualNodesEdges';
+	var response = function(data, textStatus, jqXHR) {
+		if (textStatus == 'success') {
+			$("#actualNodes").text(data.nodes.toString());
+			$("#actualEdges").text(data.edges.toString());
+			$("#actualYear").text($("#slider").slider('value'));
+		}
+		if (textStatus == 'error') {
+			alert("can not receive graph infos from server");
+		}
+	};
+	$.post(url, {}, response, "json");
 }

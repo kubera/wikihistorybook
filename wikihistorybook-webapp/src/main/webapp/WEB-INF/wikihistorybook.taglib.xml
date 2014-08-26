@@ -4,8 +4,12 @@
   "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
 <facelet-taglib>
 	<namespace>http://www.fhnw.ch/business/iwi/facelet</namespace>
-	<tag>
-		<tag-name>alternative</tag-name>
-		<source>tags/alternative.xhtml</source>
-	</tag>
+    <tag>
+        <tag-name>alternative</tag-name>
+        <source>tags/alternative.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>stream-controlpanel</tag-name>
+        <source>tags/stream-controlpanel.xhtml</source>
+    </tag>
 </facelet-taglib>

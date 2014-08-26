@@ -58,6 +58,8 @@ public class SvgWikiHistoryBook implements IWikiBookContainer {
         Layout layout = Layouts.newLayoutAlgorithm();
         Toolkit.computeLayout(graph, layout, 1.0);
         try {
+            graphData.setNodes(graph.getNodeCount());
+            graphData.setEdges(graph.getEdgeCount());
             svg.writeAll(graph, svgStream);
         } catch (IOException e) {
             LOGGER.debug("failed", e);
