@@ -24,7 +24,7 @@ function setup(sliderValue, zoomEnabled) {
 	$('#middle').text(0);
 
 	if (zoomEnabled) {
-		enableZoom();
+		enableUiZoom();
 	} else {
 		disableUiZoom();
 	}
@@ -151,6 +151,11 @@ function setSliderUiValue(year, percentage) {
 }
 
 function enableZoom() {
+	svgPan();
+	enableUiZoom();
+}
+
+function enableUiZoom() {
 	$("#enableZoomBtn").removeClass("btn-success").addClass("btn-warning");
 	$("#enableZoomBtn").html("Disable zoom");
 	$("#enableZoomBtn").attr('onclick', 'postZoomEnabled(false)');

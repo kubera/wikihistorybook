@@ -1,9 +1,9 @@
 function setupSvg(sliderValue, zoomEnabled) {
 	setup(sliderValue, zoomEnabled);
+	setActualNodesEdges();
 	if (zoomEnabled) {
 		svgPan();
 	}
-	setActualNodesEdges();
 }
 
 function svgPan() {

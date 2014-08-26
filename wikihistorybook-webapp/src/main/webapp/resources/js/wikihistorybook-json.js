@@ -53,10 +53,10 @@ function d3Init(jsonFileName) {
 				return d.y;
 			});
 		});
+		setActualNodesEdges();
 		if ($("#enableZoomBtn").hasClass('btn-warning')) {
 			svgPan();
 		}
-		setActualNodesEdges();
 	});
 }
 
